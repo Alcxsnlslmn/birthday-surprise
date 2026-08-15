@@ -398,7 +398,8 @@
       animation: flowerBurst 1.25s ease-out forwards;
       will-change: transform, opacity;
       user-select: none;
-    }
+	  pointer-events: none; 
+	}
 
     @keyframes flowerBurst {
       0% { opacity: 0; transform: translate3d(0, -40px, 0) rotate(0deg) scale(.55); }
