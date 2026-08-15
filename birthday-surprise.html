@@ -1,0 +1,1064 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>A Special Surprise 💖</title>
+
+  <style>
+    /* =====================================================
+       1. GLOBAL BASE & CROSS-BROWSER RESET
+    ===================================================== */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      -webkit-tap-highlight-color: transparent; /* Smooth touch on iOS Safari */
+    }
+
+    html, body {
+      min-height: 100vh;
+      width: 100%;
+      background:
+        radial-gradient(circle at 15% 10%, rgba(255, 120, 165, .22), transparent 32%),
+        radial-gradient(circle at 85% 85%, rgba(255, 198, 110, .12), transparent 32%),
+        radial-gradient(circle at 50% 45%, rgba(150, 45, 90, .20), transparent 45%),
+        linear-gradient(135deg, #1a0913, #321622 45%, #1c1018);
+      background-attachment: fixed;
+      color: #f7e6ed;
+      overflow-x: hidden;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px 12px;
+    }
+
+    /* =====================================================
+       2. LAYOUT & SCREENS
+    ===================================================== */
+    .screen {
+      width: 100%;
+      max-width: 840px;
+      min-height: 80vh;
+      padding: 25px 15px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+    }
+
+    .center {
+      justify-content: center;
+      text-align: center;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    /* Buttons Reset & Unified Styling */
+    button, .map-button {
+      font: inherit;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      border-radius: 25px;
+      padding: 12px 24px;
+      transition: all 0.25s ease;
+      letter-spacing: 0.5px;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+
+    button:hover, .map-button:hover {
+      transform: translateY(-2px);
+    }
+
+    button.primary {
+      background: linear-gradient(135deg, #ff6ea5, #e03272);
+      color: #ffffff;
+      padding: 14px 28px;
+      font-size: 1rem;
+      font-weight: 600;
+      border-radius: 30px;
+      box-shadow: 0 8px 20px rgba(224, 50, 114, 0.4);
+    }
+
+    button.primary:hover {
+      box-shadow: 0 12px 25px rgba(224, 50, 114, 0.6);
+    }
+
+    button.secondary {
+      background: rgba(255, 255, 255, 0.1);
+      color: #ffb3cb;
+      border: 1px solid rgba(255, 179, 203, 0.3);
+      padding: 12px 22px;
+      font-size: 0.95rem;
+      margin-top: 10px;
+      z-index: 999;
+      transition: transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    button.secondary:hover {
+      background: rgba(255, 255, 255, 0.18);
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      width: 100%;
+      margin-top: 22px;
+      position: relative;
+      min-height: 60px;
+    }
+
+    /* =====================================================
+       3. BIRTHDAY ENTRANCE STYLES
+    ===================================================== */
+    .birthday-entrance {
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+      width: 100%;
+      padding: 45px 20px;
+      border-radius: 28px;
+      background: linear-gradient(
+        145deg,
+        rgba(76, 29, 50, 0.88),
+        rgba(38, 17, 28, 0.94)
+      );
+      border: 1px solid rgba(255, 190, 215, 0.20);
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.38);
+      animation: entranceIn 0.9s ease both;
+    }
+
+    .birthday-flowers {
+      font-size: clamp(34px, 9vw, 58px);
+      letter-spacing: 5px;
+      margin-bottom: 18px;
+      animation: flowerAppear 0.8s ease both;
+    }
+
+    .birthday-title {
+      font-size: clamp(32px, 8vw, 54px);
+      font-weight: 800;
+      letter-spacing: 3px;
+      color: #ffd8e5;
+      text-shadow: 0 0 25px rgba(255, 110, 165, 0.35);
+      animation: titleAppear 1s ease 0.15s both;
+    }
+
+    .birthday-name {
+      margin-top: 10px;
+      font-size: clamp(22px, 5vw, 32px);
+      font-style: italic;
+      color: #ff9fbd;
+      animation: titleAppear 1s ease 0.3s both;
+    }
+
+    .birthday-message {
+      margin: 25px auto;
+      max-width: 480px;
+      line-height: 1.8;
+      color: #efd4de;
+      font-size: 1.05rem;
+      animation: titleAppear 1s ease 0.45s both;
+    }
+
+    .open-birthday {
+      opacity: 0;
+      animation: titleAppear 0.8s ease 0.8s forwards;
+    }
+
+    /* Keyframe Animations */
+    @keyframes entranceIn {
+      from { opacity: 0; transform: translateY(20px) scale(0.97); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    @keyframes flowerAppear {
+      from { opacity: 0; transform: scale(0.65); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    @keyframes titleAppear {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* =====================================================
+       4. CARDS & TERMINAL STYLES
+    ===================================================== */
+    .card, .invite {
+      background: rgba(50, 20, 35, 0.75);
+      border: 1px solid rgba(255, 180, 205, 0.25);
+      border-radius: 20px;
+      padding: 30px 20px;
+      width: 100%;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      position: relative;
+    }
+
+    .terminal-box {
+      background: #0f050b;
+      border: 1px solid #4a1d33;
+      border-radius: 12px;
+      padding: 20px;
+      font-family: Consolas, Monaco, "Courier New", Courier, monospace;
+      text-align: left;
+      color: #ff8cb3;
+      width: 100%;
+      margin: 20px 0;
+      min-height: 150px;
+      word-break: break-word;
+    }
+
+    .progress {
+      margin-top: 20px;
+      height: 8px;
+      border-radius: 20px;
+      overflow: hidden;
+      background: #46303b;
+    }
+
+    .bar {
+      width: 0%;
+      height: 100%;
+      background: linear-gradient(90deg, #e76596, #ffb0c9);
+      box-shadow: 0 0 12px rgba(255, 130, 175, .45);
+      transition: width .2s ease;
+    }
+
+    .percent {
+      margin-top: 10px;
+      text-align: right;
+      font-size: 12px;
+      color: #e9b9c9;
+    }
+
+    .heart {
+      font-size: 60px;
+      margin-bottom: 15px;
+      animation: float 2.5s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      50% { transform: translateY(-7px); }
+    }
+
+    h1 { font-size: clamp(28px, 7vw, 48px); }
+    h2 { font-size: clamp(24px, 6vw, 38px); margin: 8px 0; }
+    .accent { color: #ff9fbd; }
+    .subtitle { line-height: 1.7; color: #d9b8c5; max-width: 620px; margin: 10px auto; }
+
+    /* Restaurant Details Component */
+    .restaurant-card {
+      text-align: center;
+      margin-top: 15px;
+    }
+
+    .restaurant-img {
+      width: 100%;
+      max-height: 320px;
+      object-fit: cover;
+      border-radius: 15px;
+      margin-bottom: 15px;
+      border: 1px solid rgba(255, 180, 205, 0.2);
+      background-color: rgba(0, 0, 0, 0.2);
+    }
+
+    .badge {
+      display: inline-block;
+      background: rgba(255, 110, 165, 0.2);
+      color: #ff9fbd;
+      padding: 4px 12px;
+      border-radius: 12px;
+      font-size: 0.85rem;
+      margin-bottom: 10px;
+    }
+
+    /* =====================================================
+       5. RESPONSIVE GRID SYSTEM & TYPOGRAPHY
+    ===================================================== */
+    .selector-header { text-align: center; margin-bottom: 25px; width: 100%; }
+
+    .birthday-note {
+      margin: 18px auto;
+      padding: 22px;
+      max-width: 680px;
+      border-radius: 20px;
+      background: linear-gradient(135deg, rgba(145, 43, 82, .38), rgba(177, 111, 49, .18));
+      border: 1px solid rgba(255, 185, 205, .20);
+      line-height: 1.8;
+      color: #f3d6df;
+      text-align: left;
+      min-height: 180px;
+    }
+
+    .destination-grid {
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+      gap: 14px;
+    }
+
+    .destination {
+      min-height: 135px;
+      text-align: left;
+      padding: 16px;
+      background: linear-gradient(145deg, rgba(70, 34, 49, .72), rgba(42, 22, 31, .80));
+      border: 1px solid rgba(255, 190, 215, .14);
+      border-radius: 17px;
+      color: #f6dfe7;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    .destination:hover {
+      border-color: rgba(255, 145, 180, .45);
+      box-shadow: 0 12px 30px rgba(190, 60, 110, .16);
+    }
+
+    .destination-letter { display: block; font-family: Consolas, monospace; color: #ff9dbb; font-size: 11px; margin-bottom: 6px; }
+    .destination-title { display: block; font-size: 16px; font-weight: bold; margin-bottom: 6px; color: #ffd8e5; }
+    .destination-description { display: block; color: #c9aab7; font-size: 12px; line-height: 1.45; }
+
+    .restaurant-name { font-size: clamp(26px, 7vw, 40px); color: #ff9cbb; font-weight: bold; margin: 8px 0 20px; }
+
+    .details { display: grid; gap: 12px; margin: 22px 0; }
+    .detail {
+      display: flex; flex-direction: column; gap: 5px; padding: 15px;
+      background: rgba(255, 255, 255, .045); border: 1px solid rgba(255, 190, 215, .12);
+      border-radius: 13px; text-align: left;
+    }
+    .detail span { color: #c694a7; font-size: 13px; }
+    .detail b { color: #f5dce5; }
+
+    .message { line-height: 1.8; margin: 20px 0; color: #efd6df; }
+
+    .note {
+      margin-top: 20px;
+      padding: 17px;
+      background: rgba(130, 78, 38, .13);
+      border: 1px solid rgba(255, 204, 130, .10);
+      border-radius: 14px;
+      line-height: 1.7;
+      color: #efd9d1;
+      text-align: left;
+      min-height: 130px;
+    }
+
+    .cursor::after {
+      content: '┃';
+      animation: blink 0.7s infinite;
+      color: #ff9fbd;
+      margin-left: 2px;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    .time-options { width: 100%; display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-top: 25px; }
+    .time-option {
+      padding: 22px 15px; border-radius: 17px;
+      background: linear-gradient(145deg, rgba(70, 34, 49, .72), rgba(42, 22, 31, .80));
+      border: 1px solid rgba(255, 190, 215, .14); color: #f6dfe7; text-align: center;
+    }
+    .time-icon { display: block; font-size: 35px; margin-bottom: 10px; }
+    .time-title { display: block; font-size: 18px; font-weight: bold; margin-bottom: 6px; }
+    .time-description { display: block; color: #c9aab7; font-size: 13px; line-height: 1.5; }
+
+    .footer { width: 100%; margin-top: 25px; font-family: Consolas, monospace; font-size: 11px; color: #9e7787; text-align: center; }
+    .accepted { font-size: 23px; font-weight: bold; color: #ff9fbd; margin-top: 15px; }
+
+    /* =====================================================
+       6. FLOWER BLAST ANIMATION
+    ===================================================== */
+    #flowerBlast {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 9999;
+      overflow: hidden;
+    }
+
+    .flower {
+      position: absolute;
+      top: -70px;
+      opacity: 0;
+      animation: flowerBurst 1.25s ease-out forwards;
+      will-change: transform, opacity;
+      user-select: none;
+    }
+
+    @keyframes flowerBurst {
+      0% { opacity: 0; transform: translate3d(0, -40px, 0) rotate(0deg) scale(.55); }
+      12% { opacity: 1; }
+      75% { opacity: .9; }
+      100% { opacity: 0; transform: translate3d(var(--x), 85vh, 0) rotate(var(--rotation)) scale(var(--scale)); }
+    }
+
+    @media (max-width: 550px) {
+      .destination-grid { grid-template-columns: 1fr; }
+      .time-options { grid-template-columns: 1fr; }
+      .screen { padding: 20px 10px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- FLOWER CONFETTI CONTAINER -->
+  <div id="flowerBlast"></div>
+
+  <!-- =====================================================
+       1. BIRTHDAY ENTRANCE SCREEN
+  ===================================================== -->
+  <section id="birthdayEntrance" class="screen center">
+    <div class="birthday-entrance">
+      <div class="birthday-flowers">🌸 🌷 🌼 🌹 🌸</div>
+      <div class="birthday-title">HAPPY BIRTHDAY</div>
+      <div class="birthday-name">My Love 💗</div>
+      <div class="birthday-message">
+        Today is your day.
+        <br><br>
+        So before anything else...
+        <br>
+        I just wanted to make you feel a little extra loved. 🥰
+      </div>
+      <div class="open-birthday">
+        <button class="primary" onclick="openBirthday()">
+          OPEN YOUR SURPRISE 💌
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       2. LOADING / TERMINAL SCREEN
+  ===================================================== -->
+  <section id="loadingScreen" class="screen center hidden">
+    <div class="card">
+      <h2>Initializing Surprise Protocol... 💫</h2>
+      <div class="terminal-box" id="terminalLog">
+        > Accessing memory logs...<br>
+      </div>
+      <div class="progress">
+        <div id="bar" class="bar"></div>
+      </div>
+      <div id="percent" class="percent">0%</div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       3. WELCOME SCREEN
+  ===================================================== -->
+  <section id="welcome" class="screen hidden center">
+    <div class="heart">💗</div>
+    <h1>Hey, <span class="accent">My Love</span>!</h1>
+    <p class="subtitle">
+      You have a very important birthday notification.
+      <br><br>
+      And no...
+      <br>
+      it's not a school work. 😌
+      <br><br>
+      Now that you're starting your 2nd year, I know how hard you will be studying and how much effort you will put into everything you do. 
+      <br>
+      So today, take a deep breath, leave the stress behind for a moment, and let me take care of you. 
+      <br><br>
+      You deserve all the love, rest, and celebration in the world today. 🥰
+    </p>
+    <div class="buttons">
+      <button class="primary" onclick="showQuestion()">
+        OPEN NOTIFICATION 💌
+      </button>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       4. QUESTION SCREEN
+  ===================================================== -->
+  <section id="question" class="screen hidden center">
+    <div class="card">
+      <div style="font-size:24px; font-weight:bold; margin-bottom:10px;">
+        Are you ready for a little surprise?
+      </div>
+      <div class="subtitle">
+        I spent a little time coding this instead of just sending a boring message. 🤓❤️
+      </div>
+      <div class="buttons">
+        <button class="primary" onclick="showRuleScreen()">
+          YES, SHOW ME 💗
+        </button>
+        <button id="scared" class="secondary" onmouseenter="moveDodgingButton('scared', event)" ontouchstart="moveDodgingButton('scared', event)">
+          No Im not ready
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       4.5 RULE SCREEN
+  ===================================================== -->
+  <section id="ruleScreen" class="screen hidden center">
+    <div class="card">
+      <h2>Choose your birthday experience 💗</h2>
+      
+      <div id="dedicatedRulesNote" class="birthday-note cursor"></div>
+
+      <div class="buttons" style="margin-top: 25px;">
+        <button class="primary" onclick="showDestinationSelector()">
+          Understood 💖
+        </button>
+        <button id="notUnderstoodBtn" class="secondary" onmouseenter="moveDodgingButton('notUnderstoodBtn', event)" ontouchstart="moveDodgingButton('notUnderstoodBtn', event)">
+          Not
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       5. DESTINATION SELECTOR SCREEN
+  ===================================================== -->
+  <section id="destinationSelector" class="screen hidden">
+    <div class="selector-header">
+      <h2>Pick a vibe for your special day 💗</h2>
+      <p class="subtitle" style="margin-top: 15px;">
+        The restaurant names are hidden for now. 😌
+        <br>
+        Choose based only on the kind of birthday experience you want.
+      </p>
+    </div>
+
+    <div id="destinationGrid" class="destination-grid"></div>
+
+    <div class="footer">
+      available_options: 9 • mode: mystery
+    </div>
+  </section>
+
+  <!-- =====================================================
+       6. MYSTERY DETAILS SCREEN
+  ===================================================== -->
+  <section id="mysteryDetails" class="screen hidden center">
+    <div class="invite">
+      <div style="font-size:48px; margin: 10px 0;">🔐</div>
+      <h2>You found a birthday plan. 💗</h2>
+      <p class="subtitle">Here's what this plan feels like...</p>
+
+      <div class="details">
+        <div class="detail">
+          <span>📍 Location</span>
+          <b id="mysteryLocation"></b>
+        </div>
+      </div>
+
+      <div id="mysteryDescription" class="message"></div>
+
+      <div class="note" style="text-align: center;">
+        The restaurant is still a secret. 🤫
+        <br><br>
+        If you like this kind of birthday, reveal the destination. ❤️
+      </div>
+
+      <div class="buttons">
+        <button class="secondary" onclick="showDestinationSelector()">
+          ← GO BACK
+        </button>
+        <button class="primary" onclick="revealRestaurant()">
+          REVEAL ❤️
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       7. RESTAURANT DETAILS SCREEN
+  ===================================================== -->
+  <section id="restaurantDetails" class="screen center hidden">
+    <div class="card restaurant-card">
+      <span class="badge">Dinner & Date Spot 🥂</span>
+      <h2>A Special Evening Out</h2>
+      <p style="margin: 10px 0 20px; color: #efd4de;">I picked out a place for us to celebrate!</p>
+      
+      <img id="restaurantImg" src="" alt="Restaurant Atmosphere" class="restaurant-img">
+      
+      <h3 id="restaurantName" class="restaurant-name">The Cozy Table</h3>
+
+      <div class="details">
+        <div class="detail">
+          <span>📍 Location</span>
+          <b id="restaurantLocation">Quezon City</b>
+        </div>
+      </div>
+
+      <p id="restaurantDescription" style="font-size: 0.95rem; color: #d4a8b9; margin-top: 10px; line-height: 1.6;"></p>
+
+      <div style="margin-top: 25px; display: flex; flex-direction: column; gap: 10px;">
+        <button class="primary" onclick="showTimeSelection()">RESERVE OUR SPOT 🍷</button>
+        <button class="secondary" onclick="showDestinationSelector()">← Choose Another Spot</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       8. TIME SELECTION SCREEN
+  ===================================================== -->
+  <section id="timeSelection" class="screen hidden center">
+    <div class="invite">
+      <div style="font-size:48px; margin: 10px 0;">🕰️</div>
+      <h2>Now you choose the time. 💗</h2>
+      <p class="subtitle">
+        August 28, 2026
+        <br><br>
+        Which feels better for your birthday?
+      </p>
+
+      <div class="time-options">
+        <button class="time-option" onclick="selectTime('12:00 PM')">
+          <span class="time-icon">☀️</span>
+          <span class="time-title">12:00 PM</span>
+          <span class="time-description">A little birthday lunch together.</span>
+        </button>
+
+        <button class="time-option" onclick="selectTime('6:00 PM')">
+          <span class="time-icon">🌙</span>
+          <span class="time-title">6:00 PM</span>
+          <span class="time-description">A birthday dinner together.</span>
+        </button>
+      </div>
+
+      <div class="note" style="text-align: center;">
+        Don't choose based on what's easiest for me.
+        <br><br>
+        Think about what you actually want.
+        <br><br>
+        <b>It's your birthday. 🥰</b>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       9. FINAL QUESTION SCREEN
+  ===================================================== -->
+  <section id="finalQuestion" class="screen hidden center">
+    <div class="card">
+      <div style="font-size:48px; margin-bottom: 10px;">💗</div>
+      <h2>You chose... ❤️</h2>
+
+      <div id="finalRestaurantName" class="restaurant-name"></div>
+
+      <div class="details">
+        <div class="detail">
+          <span>📅 Date</span>
+          <b>August 28, 2026</b>
+        </div>
+        <div class="detail">
+          <span>⏰ Time</span>
+          <b id="finalTime"></b>
+        </div>
+      </div>
+
+      <div class="note cursor" id="typewriterNote"></div>
+
+      <p class="subtitle" style="margin-top: 15px;">
+        Are you sure you want to make this our birthday date?
+        <br><br>
+        You can still go back if you want to change something. 🥰
+      </p>
+    </div>
+
+    <div class="buttons">
+      <button class="secondary" onclick="showTimeSelection()">
+        ← GO BACK
+      </button>
+      <button class="primary" onclick="accept()">
+        PROCEED ❤️
+      </button>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       10. SUCCESS / CONFIRMATION SCREEN
+  ===================================================== -->
+  <section id="accepted" class="screen hidden center">
+    <div class="heart">🥰</div>
+    <h1 class="accent">Birthday Date Confirmed! ❤️</h1>
+    <p class="subtitle">Our birthday date is officially chosen. ❤️</p>
+
+    <div class="card terminal-box" style="margin: 20px 0; min-height: 250px;">
+      <div id="terminalConfirmation" style="line-height: 2;"></div>
+    </div>
+
+    <p class="accepted">See you there, my love. ❤️</p>
+    <p class="subtitle">August 28, 2026 • Our Birthday Date</p>
+  </section>
+
+  <!-- =====================================================
+       JAVASCRIPT CONTROLLER
+  ===================================================== -->
+  <script>
+    const destinations = [
+      {
+        name: "Wildflour QC",
+        mysteryTitle: "Cozy & Relaxed 🌷",
+        mysteryDescription: "A vibrant, stylish bakery-bistro offering comfort food classics, gourmet pastries, specialty coffee, and decadent desserts.",
+        location: "Quezon City",
+        description: "Known for its inviting bistro setting, artisanal bread, and a wide-ranging menu spanning heart-warming rice bowls, wood-fired pizzas, rich pastas, and fresh bakery pastries. Perfect for taking your time and enjoying dessert together.",
+        img: "https://hearthandhomebuddies.com/wp-content/uploads/2024/01/Wildflour-6.jpg"
+      },
+      {
+        name: "Incanta",
+        mysteryTitle: "Unique & Romantic ✨",
+        mysteryDescription: "An enchanting speakeasy-style space with moody ambient lighting, artful interiors, and creative signature culinary dishes.",
+        location: "Diliman, Quezon City",
+        description: "A hidden gem that emphasizes an intimate, romantic atmosphere with warm glow lighting and plush seating. Its menu brings inventive flavors and specialty drinks designed to make a birthday date feel truly distinct and memorable.",
+        img: "http://architizer-prod.imgix.net/media/mediadata/uploads/1747359654963PBIN2345.JPG?w=1680&q=60&auto=format,compress&cs=strip"
+      },
+      {
+        name: "Lobby 385",
+        mysteryTitle: "Fancy & Elegant ✨",
+        mysteryDescription: "A sophisticated dining space with sleek modern interiors, upscale continental cuisine, and finely crafted cocktail pairings.",
+        location: "San Juan",
+        description: "Exudes luxury and elegance, making it ideal for a proper celebratory dinner. Offers high-end steaks, refined seafood plates, and an exquisite drink selection in a quiet, polished atmosphere.",
+        img: "https://scontent.fmnl4-4.fna.fbcdn.net/v/t39.30808-6/474573106_122205696902217921_4280507496679201371_n.jpg?stp=cp6_dst-jpg_tt6&cstp=mx2048x1428&ctp=s960x960&_nc_cat=107&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=cc71e4&_nc_eui2=AeH6qCWwQ1QR3I_QgYIMWoIGyApSCMCK7AvIClIIwIrsC7BxLSZ7kQ7v9oq93SCbTqM&_nc_ohc=u5UdlMZSlpoQ7kNvwGFC3zC&_nc_oc=AdpnXiygBm_S7pg0d2D8XZ2xqJht1ruuzVuQjv7Xi2bwZR8pbeXy79RlC-JOr8JRW2Oj0LNo4ZJ2UxeZqjdlv9Ok&_nc_zt=23&_nc_ht=scontent.fmnl4-4.fna&_nc_gid=nXt6cMkf4f5--NZnZKjF8A&_nc_ss=7b2a8&oh=00_AQFKG0TbLfBYCuwZbsakU96dCdl77z-AMiZSWCykIZP54w&oe=6A869BA1"
+      },
+      {
+        name: "The Steak Market by Steak.PH",
+        mysteryTitle: "Steak Lover 🥩",
+        mysteryDescription: "A dedicated steakhouse experience centered around premium prime beef cuts, rich savory sauces, and classic steakhouse sides.",
+        location: "Kapitolyo, Pasig",
+        description: "Focuses on high-quality, melt-in-your-mouth steaks cooked precisely to your liking. Accompanied by creamy garlic mashed potatoes, truffle butter, and rich pan drippings for an indulgent birthday feast.",
+        img: "https://www.simpol.ph/wp-content/uploads/2026/02/PHOTO-1_Steak.ph_.jpg"
+      },
+      {
+        name: "Le Verre",
+        mysteryTitle: "Romantic Evening 🌹",
+        mysteryDescription: "An intimate, candlelit European-inspired dining nook featuring refined French-accented dishes and an extensive wine list.",
+        location: "Quezon City",
+        description: "Features a cozy, low-lit ambiance designed for lingering, romantic conversations over multi-course meals. Highlights exquisite French culinary techniques, artisanal cheeses, and rich sauces.",
+        img: "https://scontent.fmnl4-1.fna.fbcdn.net/v/t51.82787-15/736198534_18541792183075237_7569032510351521816_n.jpg?stp=dst-jpg_tt6&cstp=mx1509x1207&ctp=s1509x1207&_nc_cat=100&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeHlvblwPexb-9y9Pi4ix8OEVYbUIFsbhNtVhtQgWxuE25epoWjWpAd1yvO1MFBajDs&_nc_ohc=hKyYruMyYnUQ7kNvwHQr88x&_nc_oc=AdpnXOHnY3SK120Ai3SMnjz4x109ABPB3FR9mVf4gzSgtx7PB9mqXFARjRwQoqlx_NnhLGnhGP_HMbO53L1RDROO&_nc_zt=23&_nc_ht=scontent.fmnl4-1.fna&_nc_gid=5Zdsfej6iboRzPfSj8-xog&_nc_ss=7b2a8&oh=00_AQEJ3wTEeFSjsRRdTDc9ZDeoJSt13FwFJvTJnqzLLYI3Ug&oe=6A869C87"
+      },
+      {
+        name: "XI by Cafe Guilt",
+        mysteryTitle: "Something Special 💗",
+        mysteryDescription: "A chic, aesthetically pleasing dining location that balances indulgent comfort food with healthy, wholesome options.",
+        location: "Quezon City",
+        description: "An elevated spin-off of Cafe Guilt with a stylish, photo-worthy interior. Offers a flexible menu ranging from rich creamy pastas and gourmet meats to light, refreshing nourish bowls.",
+        img: "https://scontent.fmnl4-7.fna.fbcdn.net/v/t39.30808-6/598360385_842026361922507_6066011679989196672_n.jpg?stp=dst-jpg_tt6&cstp=mx1152x2048&ctp=s1152x2048&_nc_cat=109&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=cc71e4&_nc_eui2=AeHTGbuS31yJWA9R8-Id7A1xeHX2srh1heB4dfayuHWF4Hy1AH5ttfyU_Hccf4DLNOA&_nc_ohc=DFHhmHcImpEQ7kNvwH1rpUT&_nc_oc=AdrIjp-t8cbrUPmcItEMEfiucnX1gguUJqjjanTE99KNpMz0GHUW0evsf8phTFklEzxvIf9kPOqqNXBTOgNWTtMs&_nc_zt=23&_nc_ht=scontent.fmnl4-7.fna&_nc_gid=poAUlZWwATwqX0-XFg_edw&_nc_ss=7b2a8&oh=00_AQFSSusu3WD9CN-VFl99WztSrXhv0Fu1rRYaaaVeKItOGw&oe=6A866ECB"
+      },
+      {
+        name: "La Spezia",
+        mysteryTitle: "Italian Birthday 🍝",
+        mysteryDescription: "An authentic, charming Italian trattoria serving freshly handcrafted pasta, traditional risotto, and classic Italian desserts.",
+        location: "Quezon City",
+        description: "Focuses on simple, high-quality ingredients cooked with traditional Italian passion. Set in an unpretentious, cozy space perfect for enjoying house-made tagliatelle, fine olive oils, and authentic tiramisu.",
+        img: "https://scontent.fmnl4-5.fna.fbcdn.net/v/t39.30808-6/474144989_1059831472827543_6099703118712088561_n.jpg?stp=dst-jpg_tt6&cstp=mx960x720&ctp=s960x960&_nc_cat=111&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=cc71e4&_nc_eui2=AeHxupRFB1Z6lwj8Xsfw1xPy_gy4E8W7SUL-DLgTxbtJQnbhgdrUPtvNz9rZR6X3QAU&_nc_ohc=jCXQp2qyoBsQ7kNvwFWNePo&_nc_oc=AdqDhGIx14V8YDGfBFpftOsG-GhraGO6jkdaD-MJa74P0QFId35Ffz72fTOm34LCucoW53H3OBv7tbHkOGpgbLrJ&_nc_zt=23&_nc_ht=scontent.fmnl4-5.fna&_nc_gid=RXXZ_6HNtxkTquOmVReqRA&_nc_ss=7b2a8&oh=00_AQFsfArb4aN9F_zUPnO5qa_4LXtqCXqrO-1reA-dLOUffA&oe=6A86745F"
+      },
+      {
+        name: "Delgado 112",
+        mysteryTitle: "Classy Evening 🌸",
+        mysteryDescription: "A beautifully restored heritage house offering refined Spanish-Filipino fusion dishes in a historic, classy atmosphere.",
+        location: "Quezon City",
+        description: "Combines old-world charm with modern culinary craft. The warm wooden accents, ambient lighting, and rich flavor pairings create a sophisticated backdrop for an unforgettable night out.",
+        img: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiBTxMKUj4SHg0UC6dVW8t73pm_A78omKvoGSET0kP7xfoPR1SB-nH9qIP70c3jISf1CmJZgGXOUSwIN6I8j8PiQAFrnSw7izbCiNVkO3qccs32k_OCnfs6sITEI5v-vQVKiBUSQ9pZGLw/w1200-h630-p-k-no-nu/ASC_3028.JPG"
+      },
+      {
+        name: "Black Bull Steakhouse & Bar",
+        mysteryTitle: "Modern Steakhouse 🥩✨",
+        mysteryDescription: "A sleek, contemporary steakhouse delivering premium grilled meats, gourmet sides, and handcrafted cocktails in a vibrant setting.",
+        location: "Ayala Malls Vertis North, Quezon City",
+        description: "Offers an elevated yet approachable steak dining experience right in Vertis North. Celebrated for its juicy, perfectly seared prime steaks, savory sides, and stylish modern dining space suited for a memorable date night.",
+        img: "https://servicefinder.com.ph/uploads/banners/b1770590676.webp"
+      }
+    ];
+
+    const dodgingComments = [
+      "Read Again",
+      "Nice try! 😉",
+      "Seriously?!",
+      "Nope! 🙈",
+      "Ooops 😜",
+      "Over here! 💃",
+    ];
+
+    let selectedDestination = null;
+    let selectedTime = null;
+    let activeTypingTimeout = null;
+    let fallingFlowersInterval = null;
+
+    function showScreen(screenId) {
+      document.querySelectorAll('.screen').forEach(s => s.classList.add('hidden'));
+      const target = document.getElementById(screenId);
+      if (target) target.classList.remove('hidden');
+    }
+
+    function openBirthday() {
+      if (fallingFlowersInterval) clearInterval(fallingFlowersInterval);
+      triggerFlowerBlast();
+      showScreen('loadingScreen');
+      startTerminalSequence();
+    }
+
+    function startTerminalSequence() {
+      const log = document.getElementById('terminalLog');
+      const bar = document.getElementById('bar');
+      const percent = document.getElementById('percent');
+
+      const messages = [
+        "> Accessing memory logs...",
+        "> Loading favorite memories...",
+        "> Measuring love levels: OVERFLOW ERROR! ❤️",
+        "> Reserving table for two...",
+        "> Finalizing birthday itinerary...",
+        "> Ready!"
+      ];
+
+      let i = 0;
+      log.innerHTML = '';
+
+      const interval = setInterval(() => {
+        if (i < messages.length) {
+          const progress = Math.min(Math.round(((i + 1) / messages.length) * 100), 100);
+          if (bar) bar.style.width = progress + '%';
+          if (percent) percent.textContent = progress + '%';
+
+          log.innerHTML += messages[i] + "<br>";
+          i++;
+        } else {
+          clearInterval(interval);
+          setTimeout(() => showScreen('welcome'), 800);
+        }
+      }, 600);
+    }
+
+    function startTerminalLineByLine(elementId, lines, delay = 300) {
+      const container = document.getElementById(elementId);
+      if (!container) return;
+      container.innerHTML = '';
+      container.classList.add('cursor');
+
+      let lineIndex = 0;
+      const interval = setInterval(() => {
+        if (lineIndex < lines.length) {
+          container.innerHTML += lines[lineIndex] + '<br>';
+          lineIndex++;
+        } else {
+          clearInterval(interval);
+          container.classList.remove('cursor');
+        }
+      }, delay);
+    }
+
+    function showQuestion() {
+      showScreen('question');
+    }
+
+    function showRuleScreen() {
+      showScreen('ruleScreen');
+      const ruleText = "One important rule:\n\nDon't think about me.\nDon't think about what's easiest for me.\nDon't think about my work schedule.\n\nThink about what YOU want. ❤️\n\nIt's your birthday. You get to be a little selfish. 🥰";
+      startTypewriter('dedicatedRulesNote', ruleText, 30);
+    }
+
+    /* SAFE CROSS-BROWSER DODGING BUTTON */
+    function moveDodgingButton(buttonId, event) {
+      if (event && event.type === 'touchstart') {
+        event.preventDefault(); // Prevents touch ghost tap bug on iOS & Android
+      }
+
+      const btn = document.getElementById(buttonId);
+      if (!btn) return;
+
+      const parent = btn.parentElement;
+      const parentRect = parent.getBoundingClientRect();
+      const btnRect = btn.getBoundingClientRect();
+
+      const maxX = (parentRect.width - btnRect.width) / 2;
+      const maxY = 40;
+
+      const randomX = (Math.random() * 2 - 1) * maxX;
+      const randomY = (Math.random() * 2 - 1) * maxY;
+
+      btn.style.transform = `translate(${randomX}px, ${randomY}px)`;
+      btn.textContent = dodgingComments[Math.floor(Math.random() * dodgingComments.length)];
+    }
+
+    function startTypewriter(elementId, fullText, speed = 35) {
+      const container = document.getElementById(elementId);
+      if (!container) return;
+
+      if (activeTypingTimeout) clearTimeout(activeTypingTimeout);
+
+      container.innerHTML = '';
+      container.classList.add('cursor');
+      let index = 0;
+
+      function typeChar() {
+        if (index < fullText.length) {
+          const char = fullText.charAt(index);
+          container.innerHTML += (char === '\n') ? '<br>' : char;
+          index++;
+          activeTypingTimeout = setTimeout(typeChar, speed);
+        } else {
+          container.classList.remove('cursor');
+        }
+      }
+
+      typeChar();
+    }
+
+    function showDestinationSelector() {
+      renderDestinations();
+      showScreen('destinationSelector');
+    }
+
+    function renderDestinations() {
+      const grid = document.getElementById('destinationGrid');
+      grid.innerHTML = '';
+
+      destinations.forEach((dest, index) => {
+        const btn = document.createElement('button');
+        btn.className = 'destination';
+        btn.onclick = () => selectDestination(index);
+
+        btn.innerHTML = `
+          <span class="destination-letter">OPTION 0${index + 1}</span>
+          <span class="destination-title">${dest.mysteryTitle}</span>
+          <span class="destination-description">${dest.mysteryDescription}</span>
+        `;
+        grid.appendChild(btn);
+      });
+    }
+
+    function selectDestination(index) {
+      selectedDestination = destinations[index];
+      document.getElementById('mysteryLocation').textContent = selectedDestination.location;
+      document.getElementById('mysteryDescription').textContent = selectedDestination.mysteryDescription;
+      showScreen('mysteryDetails');
+    }
+
+    function revealRestaurant() {
+      if (!selectedDestination) return;
+      document.getElementById('restaurantName').textContent = selectedDestination.name;
+      document.getElementById('restaurantLocation').textContent = selectedDestination.location;
+      document.getElementById('restaurantDescription').textContent = selectedDestination.description;
+      
+      const imgElement = document.getElementById('restaurantImg');
+      if (imgElement && selectedDestination.img) {
+        imgElement.src = selectedDestination.img;
+      }
+
+      showScreen('restaurantDetails');
+    }
+
+    function showTimeSelection() {
+      showScreen('timeSelection');
+    }
+
+    function selectTime(timeStr) {
+      selectedTime = timeStr;
+      document.getElementById('finalRestaurantName').textContent = selectedDestination ? selectedDestination.name : "Selected Spot";
+      document.getElementById('finalTime').textContent = selectedTime;
+      showScreen('finalQuestion');
+
+      const textToType = "Even though we're both busy, I wanted to make your birthday feel a little more special. ❤️\n\nIt's your birthday, and I want to celebrate it with you. Just a little lunch or dinner, some good food, and some time together.\n\nI know you'll be busy, but yeah... a little birthday date is not too much to ask for. 🥰";
+
+      startTypewriter('typewriterNote', textToType, 35);
+    }
+
+    function accept() {
+      showScreen('accepted');
+      triggerFlowerBlast();
+
+      const restName = selectedDestination ? selectedDestination.name : "Selected Spot";
+      const restTime = selectedTime || "12:00 PM";
+
+      const terminalLines = [
+        `✓ Birthday_Date_Locked = "August 28, 2026"`,
+        `✓ Destination_Locked = "${restName}"`,
+        `✓ Time_Locked = "${restTime}"`,
+        `✓ Restaurant_Reservation = pending`,
+        `✓ Quality_Time = enabled`,
+        `✓ Happiness = 100%`
+      ];
+
+      startTerminalLineByLine('terminalConfirmation', terminalLines, 300);
+    }
+
+    function triggerFlowerBlast() {
+      const container = document.getElementById('flowerBlast');
+      container.innerHTML = '';
+      const flowers = ['🌸', '🌷', '🌼', '🌹', '🌺', '💗', '✨'];
+
+      for (let i = 0; i < 30; i++) {
+        const flower = document.createElement('div');
+        flower.className = 'flower';
+        flower.textContent = flowers[Math.floor(Math.random() * flowers.length)];
+
+        const startX = Math.random() * window.innerWidth;
+        const driftX = (Math.random() - 0.5) * 300;
+        const rotation = Math.random() * 720;
+        const scale = 0.6 + Math.random() * 0.8;
+
+        flower.style.left = `${startX}px`;
+        flower.style.setProperty('--x', `${driftX}px`);
+        flower.style.setProperty('--rotation', `${rotation}deg`);
+        flower.style.setProperty('--scale', scale);
+        flower.style.animationDelay = `${Math.random() * 0.4}s`;
+
+        container.appendChild(flower);
+      }
+    }
+
+    function startFallingFlowers() {
+      const container = document.getElementById('flowerBlast');
+      if (!container) return;
+
+      const flowerEmojis = ['🌸', '🌷', '🌼', '🌹', '🌺', '✨'];
+
+      fallingFlowersInterval = setInterval(() => {
+        const entrance = document.getElementById('birthdayEntrance');
+        if (entrance && entrance.classList.contains('hidden')) {
+          clearInterval(fallingFlowersInterval);
+          return;
+        }
+
+        const flower = document.createElement('div');
+        flower.className = 'flower';
+        flower.textContent = flowerEmojis[Math.floor(Math.random() * flowerEmojis.length)];
+
+        const left = Math.random() * 100;
+        const xOffset = (Math.random() - 0.5) * 200;
+        const rotation = Math.random() * 720;
+        const scale = 0.6 + Math.random() * 0.8;
+        const duration = 2.5 + Math.random() * 2.5;
+
+        flower.style.left = `${left}vw`;
+        flower.style.fontSize = `${18 + Math.random() * 16}px`;
+        flower.style.setProperty('--x', `${xOffset}px`);
+        flower.style.setProperty('--rotation', `${rotation}deg`);
+        flower.style.setProperty('--scale', scale);
+        flower.style.animationDuration = `${duration}s`;
+
+        container.appendChild(flower);
+
+        setTimeout(() => {
+          flower.remove();
+        }, duration * 1000);
+      }, 250);
+    }
+
+    window.addEventListener('DOMContentLoaded', startFallingFlowers);
+  </script>
+</body>
+</html>
