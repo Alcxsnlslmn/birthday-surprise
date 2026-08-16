@@ -566,7 +566,7 @@
   ===================================================== -->
 		<section id="birthdayEntrance" class="screen center">
 			<div class="birthday-entrance">
-				<div class="birthday-flowers">🌸 🌷 🌼 🌹 🌸</div>
+				<div class="birthday-flowers">🩺 🌸 🩺 🌷 🌸</div>
 				<div class="birthday-title font-serif">HAPPY BIRTHDAY</div>
 				<div class="birthday-name font-script">My Love 💗</div>
 				<div class="birthday-message">
@@ -587,9 +587,9 @@
   ===================================================== -->
 		<section id="loadingScreen" class="screen center hidden">
 			<div class="card">
-				<h2 class="font-serif">Initializing Surprise Protocol... 💫</h2>
+				<h2 class="font-serif">Initializing Surprise Protocol... 🩺💫</h2>
 				<div class="terminal-box" id="terminalLog">
-        > Accessing memory logs... <br>
+        > Accessing patient details... <br>
 				</div>
 				<div class="progress">
 					<div id="bar" class="bar"></div>
@@ -602,43 +602,43 @@
        3. WELCOME SCREEN
   ===================================================== -->
 		<section id="welcome" class="screen hidden center">
-			<div class="heart">💗</div>
-			<h1 class="font-serif">Hey, <span class="accent font-script" style="font-size: 1.2em;">My Love</span>!</h1>
+			<div class="heart">🩺💖</div>
+			<h1 class="font-serif">Hey, <span class="accent font-script" style="font-size: 1.2em;">My Future Nurse</span>!</h1>
 			<p class="subtitle">
-        You have a very important birthday notification. <br><br>
+        You have a very important birthday prescription waiting. <br><br>
         And no... <br>
-        it's not a school work. 😌 <br><br>
-        Now that you're starting your 2nd year, I know how hard you will be studying and how much effort you will put into everything you do. <br>
-        So today, take a deep breath, leave the stress behind for a moment, and let me take care of you. <br><br>
-        You deserve all the love, rest, and celebration in the world today. 🥰
+        it's not another chapter to study! 🩺😌 <br><br>
+        I know how hard you study in nursing school and how much care and energy you put into everything you do. <br>
+        So today, take off your scrubs, leave the study stress behind for a bit, and let me take care of you. <br><br>
+        You deserve all the love, rest, and pampering in the world today. 🥰
       </p>
 			<div class="buttons">
 				<button class="primary pulse-glow" onclick="showMemoriesScreen()">
-          OPEN NOTIFICATION 💌
+          OPEN PRESCRIPTION 💌
         </button>
 			</div>
 		</section>
 
 		<!-- =====================================================
-       3.5 INTERACTIVE MEMORY CARDS SCREEN (NEW ROMANTIC UX)
+       3.5 INTERACTIVE MEMORY CARDS SCREEN (CUTE & PERSONAL)
   ===================================================== -->
 		<section id="memoriesScreen" class="screen hidden center">
 			<div class="card">
-				<h2 class="font-serif">Before We Pick... 🌸</h2>
+				<h2 class="font-serif">Before We Pick... 🩺🌸</h2>
 				<p class="subtitle">Tap each card to unlock 3 reasons why today is all about celebrating you!</p>
 				
 				<div class="memory-grid">
 					<div class="memory-card" onclick="flipCard(this)">
-						<div class="card-front">Reason #1 💖</div>
-						<div class="card-back">You work so incredibly hard every day, and I am constantly in awe of your dedication. 🌟</div>
+						<div class="card-front">Reason #1 🩺💖</div>
+						<div class="card-back">You have the biggest heart, and seeing how dedicated you are to nursing school inspires me every single day. 🌟</div>
 					</div>
 					<div class="memory-card" onclick="flipCard(this)">
-						<div class="card-front">Reason #2 🌷</div>
-						<div class="card-back">Even on your busiest school days, seeing your smile brightens up my whole week. 🥰</div>
+						<div class="card-front">Reason #2 🌷✨</div>
+						<div class="card-back">Even on your heaviest study days, seeing your smile brightens up my whole week. 🥰</div>
 					</div>
 					<div class="memory-card" onclick="flipCard(this)">
-						<div class="card-front">Reason #3 🥂</div>
-						<div class="card-back">You deserve to be spoiled with good food, rest, and love without worrying about a thing. ❤️</div>
+						<div class="card-front">Reason #3 🥂🧸</div>
+						<div class="card-back">You spend so much time taking care of others—today, you deserve to be spoiled and taken care of without worrying about a thing! ❤️</div>
 					</div>
 				</div>
 
@@ -971,9 +971,9 @@
       const percent = document.getElementById('percent');
 
       const messages = [
-        "> Accessing memory logs...",
-        "> Loading favorite memories...",
-        "> Measuring love levels: OVERFLOW ERROR! ❤️",
+        "> Checking vital signs...",
+        "> Heart rate: 100% IN LOVE 💓",
+        "> Administering 1000mg of Tender Loving Care...",
         "> Reserving table for two...",
         "> Finalizing birthday itinerary...",
         "> Ready!"
@@ -1175,7 +1175,7 @@
     function triggerFlowerBlast() {
       const container = document.getElementById('flowerBlast');
       container.innerHTML = '';
-      const flowers = ['🌸', '🌷', '🌼', '🌹', '🌺', '💗', '✨'];
+      const flowers = ['🩺', '🌸', '🌷', '🩺', '🌺', '💗', '✨'];
 
       for (let i = 0; i < 30; i++) {
         const flower = document.createElement('div');
@@ -1201,7 +1201,7 @@
       const container = document.getElementById('flowerBlast');
       if (!container) return;
 
-      const flowerEmojis = ['🌸', '🌷', '🌼', '🌹', '🌺', '✨'];
+      const flowerEmojis = ['🩺', '🌸', '🌷', '🌼', '🌺', '✨'];
 
       fallingFlowersInterval = setInterval(() => {
         const entrance = document.getElementById('birthdayEntrance');
@@ -1237,7 +1237,7 @@
 
     /* GLOBAL TAP/CLICK FLOATING HEARTS EFFECT */
     document.addEventListener('click', function (e) {
-      const heartIcons = ['💖', '✨', '💕', '🌸', '💗'];
+      const heartIcons = ['💖', '✨', '💕', '🌸', '🩺', '💗'];
       const heart = document.createElement('div');
       heart.innerHTML = heartIcons[Math.floor(Math.random() * heartIcons.length)];
       heart.style.position = 'fixed';
