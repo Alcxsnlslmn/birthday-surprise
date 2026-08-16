@@ -4,6 +4,12 @@
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 		<title>A Special Surprise 💖</title>
+		
+		<!-- GOOGLE FONTS FOR ROMANTIC TYPOGRAPHY -->
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,800;1,400&family=Sacramento&display=swap" rel="stylesheet">
+
 		<style>
     /* =====================================================
        1. GLOBAL BASE & CROSS-BROWSER RESET
@@ -13,17 +19,17 @@
       margin: 0;
       padding: 0;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      -webkit-tap-highlight-color: transparent; /* Smooth touch on iOS Safari */
+      -webkit-tap-highlight-color: transparent;
     }
 
     html, body {
       min-height: 100vh;
       width: 100%;
       background:
-        radial-gradient(circle at 15% 10%, rgba(255, 120, 165, .22), transparent 32%),
-        radial-gradient(circle at 85% 85%, rgba(255, 198, 110, .12), transparent 32%),
-        radial-gradient(circle at 50% 45%, rgba(150, 45, 90, .20), transparent 45%),
-        linear-gradient(135deg, #1a0913, #321622 45%, #1c1018);
+        radial-gradient(circle at 15% 10%, rgba(255, 120, 165, .28), transparent 35%),
+        radial-gradient(circle at 85% 85%, rgba(255, 180, 110, .18), transparent 35%),
+        radial-gradient(circle at 50% 45%, rgba(170, 45, 100, .25), transparent 50%),
+        linear-gradient(135deg, #180711, #2f121f 45%, #180b13);
       background-attachment: fixed;
       color: #f7e6ed;
       overflow-x: hidden;
@@ -35,6 +41,14 @@
       align-items: center;
       justify-content: center;
       padding: 20px 12px;
+    }
+
+    /* Font Classes */
+    .font-serif {
+      font-family: 'Playfair Display', Georgia, serif;
+    }
+    .font-script {
+      font-family: 'Sacramento', cursive;
     }
 
     /* =====================================================
@@ -49,7 +63,7 @@
       flex-direction: column;
       align-items: center;
       position: relative;
-      z-index: 10; /* Ensures buttons sit above falling animations */
+      z-index: 10;
     }
 
     .center {
@@ -69,7 +83,7 @@
       cursor: pointer;
       border-radius: 25px;
       padding: 12px 24px;
-      transition: all 0.25s ease;
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
       letter-spacing: 0.5px;
       -webkit-appearance: none;
       appearance: none;
@@ -86,26 +100,43 @@
       font-size: 1rem;
       font-weight: 600;
       border-radius: 30px;
-      box-shadow: 0 8px 20px rgba(224, 50, 114, 0.4);
+      box-shadow: 0 8px 25px rgba(224, 50, 114, 0.45);
     }
 
-    button.primary:hover {
-      box-shadow: 0 12px 25px rgba(224, 50, 114, 0.6);
+    /* Pulsing Glow Animation for Action Buttons */
+    .pulse-glow {
+      animation: heartPulse 2.2s infinite ease-in-out;
+    }
+
+    @keyframes heartPulse {
+      0% {
+        transform: scale(1);
+        box-shadow: 0 8px 20px rgba(224, 50, 114, 0.4);
+      }
+      50% {
+        transform: scale(1.03);
+        box-shadow: 0 12px 30px rgba(255, 110, 165, 0.7);
+      }
+      100% {
+        transform: scale(1);
+        box-shadow: 0 8px 20px rgba(224, 50, 114, 0.4);
+      }
     }
 
     button.secondary {
-      background: rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.08);
       color: #ffb3cb;
       border: 1px solid rgba(255, 179, 203, 0.3);
       padding: 12px 22px;
       font-size: 0.95rem;
       margin-top: 10px;
       z-index: 999;
-      transition: transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+      backdrop-filter: blur(8px);
     }
 
     button.secondary:hover {
       background: rgba(255, 255, 255, 0.18);
+      border-color: rgba(255, 179, 203, 0.6);
     }
 
     .buttons {
@@ -121,7 +152,7 @@
     }
 
     /* =====================================================
-       3. BIRTHDAY ENTRANCE STYLES
+       3. CARDS & GLASSMORPHISM
     ===================================================== */
     .birthday-entrance {
       position: relative;
@@ -135,8 +166,8 @@
         rgba(76, 29, 50, 0.88),
         rgba(38, 17, 28, 0.94)
       );
-      border: 1px solid rgba(255, 190, 215, 0.20);
-      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.38);
+      border: 1px solid rgba(255, 190, 215, 0.25);
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45), 0 0 40px rgba(255, 110, 165, 0.15);
       animation: entranceIn 0.9s ease both;
     }
 
@@ -152,14 +183,13 @@
       font-weight: 800;
       letter-spacing: 3px;
       color: #ffd8e5;
-      text-shadow: 0 0 25px rgba(255, 110, 165, 0.35);
+      text-shadow: 0 0 25px rgba(255, 110, 165, 0.45);
       animation: titleAppear 1s ease 0.15s both;
     }
 
     .birthday-name {
-      margin-top: 10px;
-      font-size: clamp(22px, 5vw, 32px);
-      font-style: italic;
+      margin-top: 5px;
+      font-size: clamp(32px, 7vw, 48px);
       color: #ff9fbd;
       animation: titleAppear 1s ease 0.3s both;
     }
@@ -177,42 +207,77 @@
       opacity: 0;
       animation: titleAppear 0.8s ease 0.8s forwards;
       position: relative;
-      z-index: 999; /* Forces the button to be on the highest layer */
+      z-index: 999;
     }
 
-    /* Keyframe Animations */
-    @keyframes entranceIn {
-      from { opacity: 0; transform: translateY(20px) scale(0.97); }
-      to { opacity: 1; transform: translateY(0) scale(1); }
-    }
-    @keyframes flowerAppear {
-      from { opacity: 0; transform: scale(0.65); }
-      to { opacity: 1; transform: scale(1); }
-    }
-    @keyframes titleAppear {
-      from { opacity: 0; transform: translateY(12px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    /* =====================================================
-       4. CARDS & TERMINAL STYLES
-    ===================================================== */
     .card, .invite {
-      background: rgba(50, 20, 35, 0.75);
+      background: rgba(45, 18, 32, 0.75);
       border: 1px solid rgba(255, 180, 205, 0.25);
-      border-radius: 20px;
+      border-radius: 24px;
       padding: 30px 20px;
       width: 100%;
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
       position: relative;
     }
 
+    /* Interactive Memory Cards Grid */
+    .memory-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+      width: 100%;
+      margin: 20px 0;
+    }
+
+    .memory-card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 180, 205, 0.2);
+      border-radius: 18px;
+      padding: 20px 15px;
+      cursor: pointer;
+      min-height: 160px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .memory-card:hover {
+      transform: translateY(-5px) scale(1.02);
+      border-color: rgba(255, 110, 165, 0.5);
+      box-shadow: 0 10px 25px rgba(255, 110, 165, 0.2);
+    }
+
+    .memory-card .card-front {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #ffb3cb;
+    }
+
+    .memory-card .card-back {
+      display: none;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      color: #f7e6ed;
+    }
+
+    .memory-card.flipped {
+      background: rgba(255, 110, 165, 0.15);
+      border-color: #ff6ea5;
+    }
+
+    .memory-card.flipped .card-front { display: none; }
+    .memory-card.flipped .card-back { display: block; }
+
     .terminal-box {
-      background: #0f050b;
+      background: #0d040a;
       border: 1px solid #4a1d33;
-      border-radius: 12px;
+      border-radius: 14px;
       padding: 20px;
       font-family: Consolas, Monaco, "Courier New", Courier, monospace;
       text-align: left;
@@ -221,6 +286,7 @@
       margin: 20px 0;
       min-height: 150px;
       word-break: break-word;
+      box-shadow: inset 0 2px 10px rgba(0,0,0,0.5);
     }
 
     .progress {
@@ -235,7 +301,7 @@
       width: 0%;
       height: 100%;
       background: linear-gradient(90deg, #e76596, #ffb0c9);
-      box-shadow: 0 0 12px rgba(255, 130, 175, .45);
+      box-shadow: 0 0 12px rgba(255, 130, 175, .6);
       transition: width .2s ease;
     }
 
@@ -253,7 +319,8 @@
     }
 
     @keyframes float {
-      50% { transform: translateY(-7px); }
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
     }
 
     h1 { font-size: clamp(28px, 7vw, 48px); }
@@ -271,9 +338,9 @@
       width: 100%;
       max-height: 320px;
       object-fit: cover;
-      border-radius: 15px;
+      border-radius: 18px;
       margin-bottom: 15px;
-      border: 1px solid rgba(255, 180, 205, 0.2);
+      border: 1px solid rgba(255, 180, 205, 0.25);
       background-color: rgba(0, 0, 0, 0.2);
     }
 
@@ -281,14 +348,15 @@
       display: inline-block;
       background: rgba(255, 110, 165, 0.2);
       color: #ff9fbd;
-      padding: 4px 12px;
-      border-radius: 12px;
+      padding: 6px 16px;
+      border-radius: 15px;
       font-size: 0.85rem;
-      margin-bottom: 10px;
+      margin-bottom: 12px;
+      border: 1px solid rgba(255, 110, 165, 0.3);
     }
 
     /* =====================================================
-       5. RESPONSIVE GRID SYSTEM & TYPOGRAPHY
+       4. RESPONSIVE GRID SYSTEM & TYPOGRAPHY
     ===================================================== */
     .selector-header { text-align: center; margin-bottom: 25px; width: 100%; }
 
@@ -315,22 +383,24 @@
     .destination {
       min-height: 135px;
       text-align: left;
-      padding: 16px;
+      padding: 18px;
       background: linear-gradient(145deg, rgba(70, 34, 49, .72), rgba(42, 22, 31, .80));
-      border: 1px solid rgba(255, 190, 215, .14);
-      border-radius: 17px;
+      border: 1px solid rgba(255, 190, 215, .16);
+      border-radius: 20px;
       color: #f6dfe7;
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
+      transition: all 0.3s ease;
     }
 
     .destination:hover {
-      border-color: rgba(255, 145, 180, .45);
-      box-shadow: 0 12px 30px rgba(190, 60, 110, .16);
+      border-color: rgba(255, 145, 180, .55);
+      box-shadow: 0 12px 30px rgba(190, 60, 110, .25);
+      transform: translateY(-3px);
     }
 
     .destination-letter { display: block; font-family: Consolas, monospace; color: #ff9dbb; font-size: 11px; margin-bottom: 6px; }
-    .destination-title { display: block; font-size: 16px; font-weight: bold; margin-bottom: 6px; color: #ffd8e5; }
+    .destination-title { display: block; font-size: 17px; font-weight: bold; margin-bottom: 6px; color: #ffd8e5; }
     .destination-description { display: block; color: #c9aab7; font-size: 12px; line-height: 1.45; }
 
     .restaurant-name { font-size: clamp(26px, 7vw, 40px); color: #ff9cbb; font-weight: bold; margin: 8px 0 20px; }
@@ -339,7 +409,7 @@
     .detail {
       display: flex; flex-direction: column; gap: 5px; padding: 15px;
       background: rgba(255, 255, 255, .045); border: 1px solid rgba(255, 190, 215, .12);
-      border-radius: 13px; text-align: left;
+      border-radius: 15px; text-align: left;
     }
     .detail span { color: #c694a7; font-size: 13px; }
     .detail b { color: #f5dce5; }
@@ -348,10 +418,10 @@
 
     .note {
       margin-top: 20px;
-      padding: 17px;
-      background: rgba(130, 78, 38, .13);
-      border: 1px solid rgba(255, 204, 130, .10);
-      border-radius: 14px;
+      padding: 18px;
+      background: rgba(130, 78, 38, .15);
+      border: 1px solid rgba(255, 204, 130, .15);
+      border-radius: 16px;
       line-height: 1.7;
       color: #efd9d1;
       text-align: left;
@@ -372,9 +442,14 @@
 
     .time-options { width: 100%; display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-top: 25px; }
     .time-option {
-      padding: 22px 15px; border-radius: 17px;
+      padding: 22px 15px; border-radius: 20px;
       background: linear-gradient(145deg, rgba(70, 34, 49, .72), rgba(42, 22, 31, .80));
       border: 1px solid rgba(255, 190, 215, .14); color: #f6dfe7; text-align: center;
+      transition: all 0.3s ease;
+    }
+    .time-option:hover {
+      border-color: #ff6ea5;
+      box-shadow: 0 10px 25px rgba(255, 110, 165, 0.25);
     }
     .time-icon { display: block; font-size: 35px; margin-bottom: 10px; }
     .time-title { display: block; font-size: 18px; font-weight: bold; margin-bottom: 6px; }
@@ -383,8 +458,22 @@
     .footer { width: 100%; margin-top: 25px; font-family: Consolas, monospace; font-size: 11px; color: #9e7787; text-align: center; }
     .accepted { font-size: 23px; font-weight: bold; color: #ff9fbd; margin-top: 15px; }
 
+    /* Keyframe Animations */
+    @keyframes entranceIn {
+      from { opacity: 0; transform: translateY(20px) scale(0.97); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    @keyframes flowerAppear {
+      from { opacity: 0; transform: scale(0.65); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    @keyframes titleAppear {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
     /* =====================================================
-       6. FLOWER BLAST ANIMATION
+       5. FLOWER BLAST ANIMATION
     ===================================================== */
     #flowerBlast, #flowerBlast * {
       position: fixed;
@@ -428,15 +517,15 @@
 		<section id="birthdayEntrance" class="screen center">
 			<div class="birthday-entrance">
 				<div class="birthday-flowers">🌸 🌷 🌼 🌹 🌸</div>
-				<div class="birthday-title">HAPPY BIRTHDAY</div>
-				<div class="birthday-name">My Love 💗</div>
+				<div class="birthday-title font-serif">HAPPY BIRTHDAY</div>
+				<div class="birthday-name font-script">My Love 💗</div>
 				<div class="birthday-message">
         Today is your day. <br><br>
         So before anything else... <br>
         I just wanted to make you feel a little extra loved. 🥰
       </div>
 				<div class="open-birthday">
-					<button class="primary" onclick="openBirthday()">
+					<button class="primary pulse-glow" onclick="openBirthday()">
           OPEN YOUR SURPRISE 💌
         </button>
 				</div>
@@ -448,7 +537,7 @@
   ===================================================== -->
 		<section id="loadingScreen" class="screen center hidden">
 			<div class="card">
-				<h2>Initializing Surprise Protocol... 💫</h2>
+				<h2 class="font-serif">Initializing Surprise Protocol... 💫</h2>
 				<div class="terminal-box" id="terminalLog">
         > Accessing memory logs... <br>
 				</div>
@@ -464,7 +553,7 @@
   ===================================================== -->
 		<section id="welcome" class="screen hidden center">
 			<div class="heart">💗</div>
-			<h1>Hey, <span class="accent">My Love</span>!</h1>
+			<h1 class="font-serif">Hey, <span class="accent font-script" style="font-size: 1.2em;">My Love</span>!</h1>
 			<p class="subtitle">
         You have a very important birthday notification. <br><br>
         And no... <br>
@@ -474,9 +563,40 @@
         You deserve all the love, rest, and celebration in the world today. 🥰
       </p>
 			<div class="buttons">
-				<button class="primary" onclick="showQuestion()">
+				<button class="primary pulse-glow" onclick="showMemoriesScreen()">
           OPEN NOTIFICATION 💌
         </button>
+			</div>
+		</section>
+
+		<!-- =====================================================
+       3.5 INTERACTIVE MEMORY CARDS SCREEN (NEW ROMANTIC UX)
+  ===================================================== -->
+		<section id="memoriesScreen" class="screen hidden center">
+			<div class="card">
+				<h2 class="font-serif">Before We Pick... 🌸</h2>
+				<p class="subtitle">Tap each card to unlock 3 reasons why today is all about celebrating you!</p>
+				
+				<div class="memory-grid">
+					<div class="memory-card" onclick="flipCard(this)">
+						<div class="card-front">Reason #1 💖</div>
+						<div class="card-back">You work so incredibly hard every day, and I am constantly in awe of your dedication. 🌟</div>
+					</div>
+					<div class="memory-card" onclick="flipCard(this)">
+						<div class="card-front">Reason #2 🌷</div>
+						<div class="card-back">Even on your busiest school days, seeing your smile brightens up my whole week. 🥰</div>
+					</div>
+					<div class="memory-card" onclick="flipCard(this)">
+						<div class="card-front">Reason #3 🥂</div>
+						<div class="card-back">You deserve to be spoiled with good food, rest, and love without worrying about a thing. ❤️</div>
+					</div>
+				</div>
+
+				<div class="buttons" style="margin-top: 15px;">
+					<button class="primary pulse-glow" onclick="showQuestion()">
+            CONTINUE TO SURPRISE ✨
+          </button>
+				</div>
 			</div>
 		</section>
 
@@ -485,14 +605,14 @@
   ===================================================== -->
 		<section id="question" class="screen hidden center">
 			<div class="card">
-				<div style="font-size:24px; font-weight:bold; margin-bottom:10px;">
+				<div style="font-size:24px; font-weight:bold; margin-bottom:10px;" class="font-serif">
           Are you ready for a little surprise?
         </div>
 				<div class="subtitle">
           I spent a little time coding this instead of just sending a boring message. 🤓❤️
         </div>
 				<div class="buttons">
-					<button class="primary" onclick="showRuleScreen()">
+					<button class="primary pulse-glow" onclick="showRuleScreen()">
             YES, SHOW ME 💗
           </button>
 					<button id="scared" class="secondary" onmouseenter="moveDodgingButton('scared', event)" ontouchstart="moveDodgingButton('scared', event)">
@@ -507,10 +627,10 @@
   ===================================================== -->
 		<section id="ruleScreen" class="screen hidden center">
 			<div class="card">
-				<h2>Choose your birthday experience 💗</h2>
+				<h2 class="font-serif">Choose your birthday experience 💗</h2>
 				<div id="dedicatedRulesNote" class="birthday-note cursor"></div>
 				<div class="buttons" style="margin-top: 25px;">
-					<button class="primary" onclick="showDestinationSelector()">
+					<button class="primary pulse-glow" onclick="showDestinationSelector()">
             Understood 💖
           </button>
 					<button id="notUnderstoodBtn" class="secondary" onmouseenter="moveDodgingButton('notUnderstoodBtn', event)" ontouchstart="moveDodgingButton('notUnderstoodBtn', event)">
@@ -525,7 +645,7 @@
   ===================================================== -->
 		<section id="destinationSelector" class="screen hidden">
 			<div class="selector-header">
-				<h2>Pick a vibe for your special day 💗</h2>
+				<h2 class="font-serif">Pick a vibe for your special day 💗</h2>
 				<p class="subtitle" style="margin-top: 15px;">
           The restaurant names are hidden for now. 😌 <br>
           Choose based only on the kind of birthday experience you want.
@@ -543,7 +663,7 @@
 		<section id="mysteryDetails" class="screen hidden center">
 			<div class="invite">
 				<div style="font-size:48px; margin: 10px 0;">🔐</div>
-				<h2>You found a birthday plan. 💗</h2>
+				<h2 class="font-serif">You found a birthday plan. 💗</h2>
 				<p class="subtitle">Here's what this plan feels like...</p>
 				<div class="details">
 					<div class="detail">
@@ -560,7 +680,7 @@
 					<button class="secondary" onclick="showDestinationSelector()">
             ← GO BACK
           </button>
-					<button class="primary" onclick="revealRestaurant()">
+					<button class="primary pulse-glow" onclick="revealRestaurant()">
             REVEAL ❤️
           </button>
 				</div>
@@ -573,10 +693,10 @@
 		<section id="restaurantDetails" class="screen center hidden">
 			<div class="card restaurant-card">
 				<span class="badge">Dinner & Date Spot 🥂</span>
-				<h2>A Special Evening Out</h2>
+				<h2 class="font-serif">A Special Evening Out</h2>
 				<p style="margin: 10px 0 20px; color: #efd4de;">I picked out a place for us to celebrate!</p>
 				<img id="restaurantImg" src="" alt="Restaurant Atmosphere" class="restaurant-img">
-				<h3 id="restaurantName" class="restaurant-name">The Cozy Table</h3>
+				<h3 id="restaurantName" class="restaurant-name font-serif">The Cozy Table</h3>
 				<div class="details">
 					<div class="detail">
 						<span>📍 Location</span>
@@ -585,7 +705,7 @@
 				</div>
 				<p id="restaurantDescription" style="font-size: 0.95rem; color: #d4a8b9; margin-top: 10px; line-height: 1.6;"></p>
 				<div style="margin-top: 25px; display: flex; flex-direction: column; gap: 10px;">
-					<button class="primary" onclick="showTimeSelection()">RESERVE OUR SPOT 🍷</button>
+					<button class="primary pulse-glow" onclick="showTimeSelection()">RESERVE OUR SPOT 🍷</button>
 					<button class="secondary" onclick="showDestinationSelector()">← Choose Another Spot</button>
 				</div>
 			</div>
@@ -597,7 +717,7 @@
 		<section id="timeSelection" class="screen hidden center">
 			<div class="invite">
 				<div style="font-size:48px; margin: 10px 0;">🕰️</div>
-				<h2>Now you choose the time. 💗</h2>
+				<h2 class="font-serif">Now you choose the time. 💗</h2>
 				<p class="subtitle">
           August 28, 2026 <br><br>
           Which feels better for your birthday?
@@ -631,8 +751,8 @@
 		<section id="finalQuestion" class="screen hidden center">
 			<div class="card">
 				<div style="font-size:48px; margin-bottom: 10px;">💗</div>
-				<h2>You chose... ❤️</h2>
-				<div id="finalRestaurantName" class="restaurant-name"></div>
+				<h2 class="font-serif">You chose... ❤️</h2>
+				<div id="finalRestaurantName" class="restaurant-name font-serif"></div>
 				<div class="details">
 					<div class="detail">
 						<span>📅 Date</span>
@@ -653,7 +773,7 @@
 				<button class="secondary" onclick="showTimeSelection()">
           ← GO BACK
         </button>
-				<button class="primary" onclick="accept()">
+				<button class="primary pulse-glow" onclick="accept()">
           PROCEED ❤️
         </button>
 			</div>
@@ -664,7 +784,7 @@
   ===================================================== -->
 		<section id="accepted" class="screen hidden center">
 			<div class="heart">🥰</div>
-			<h1 class="accent">Birthday Date Confirmed! ❤️</h1>
+			<h1 class="accent font-serif">Birthday Date Confirmed! ❤️</h1>
 			<p class="subtitle">Our birthday date is officially chosen. ❤️</p>
 			<div class="card terminal-box" style="margin: 20px 0; min-height: 250px;">
 				<div id="terminalConfirmation" style="line-height: 2;"></div>
@@ -681,11 +801,11 @@
 			</div>
 
 			<!-- EMAIL ACTION BUTTON -->
-			<button onclick="sendEmailChoice()" class="primary" style="margin-top: 10px;">
+			<button onclick="sendEmailChoice()" class="primary pulse-glow" style="margin-top: 10px;">
         Send Me Your Pick ✉️
       </button>
 
-			<p class="accepted" style="margin-top: 20px;">See you there, my love. ❤️</p>
+			<p class="accepted font-script" style="margin-top: 20px; font-size: 2.2rem;">See you there, my love. ❤️</p>
 			<p class="subtitle">August 28, 2026 • Our Birthday Date</p>
 		</section>
 
@@ -763,7 +883,7 @@
         mysteryTitle: "Modern Steakhouse 🥩✨",
         mysteryDescription: "A sleek, contemporary steakhouse delivering premium grilled meats, gourmet sides, and handcrafted cocktails in a vibrant setting.",
         location: "Ayala Malls Vertis North, Quezon City",
-        description: "Offers an elevated yet approachable steak dining experience right in Vertis North. Celebrated for its juicy, perfectly seared prime steaks, savory sides, and stylish modern dining space suited for a memorable date night.",
+        description: "Offers an elevated yet approachable steak dining experience right in Vertis North. Celebrated for its juicy, perfectly seear prime steaks, savory sides, and stylish modern dining space suited for a memorable date night.",
         img: "https://servicefinder.com.ph/uploads/banners/b1770590676.webp"
       }
     ];
@@ -845,6 +965,14 @@
       }, delay);
     }
 
+    function showMemoriesScreen() {
+      showScreen('memoriesScreen');
+    }
+
+    function flipCard(cardEl) {
+      cardEl.classList.toggle('flipped');
+    }
+
     function showQuestion() {
       showScreen('question');
     }
@@ -858,7 +986,7 @@
     /* SAFE CROSS-BROWSER DODGING BUTTON */
     function moveDodgingButton(buttonId, event) {
       if (event && event.type === 'touchstart') {
-        event.preventDefault(); // Prevents touch ghost tap bug on iOS & Android
+        event.preventDefault();
       }
 
       const btn = document.getElementById(buttonId);
@@ -918,7 +1046,7 @@
 
         btn.innerHTML = `
           <span class="destination-letter">OPTION 0${index + 1}</span>
-          <span class="destination-title">${dest.mysteryTitle}</span>
+          <span class="destination-title font-serif">${dest.mysteryTitle}</span>
           <span class="destination-description">${dest.mysteryDescription}</span>
         `;
         grid.appendChild(btn);
@@ -1053,6 +1181,29 @@
         }, duration * 1000);
       }, 250);
     }
+
+    /* GLOBAL TAP/CLICK FLOATING HEARTS EFFECT */
+    document.addEventListener('click', function (e) {
+      const heartIcons = ['💖', '✨', '💕', '🌸', '💗'];
+      const heart = document.createElement('div');
+      heart.innerHTML = heartIcons[Math.floor(Math.random() * heartIcons.length)];
+      heart.style.position = 'fixed';
+      heart.style.left = (e.clientX - 10) + 'px';
+      heart.style.top = (e.clientY - 10) + 'px';
+      heart.style.fontSize = '22px';
+      heart.style.pointerEvents = 'none';
+      heart.style.zIndex = '99999';
+      heart.style.transition = 'all 1.1s cubic-bezier(0.25, 0.8, 0.25, 1)';
+      
+      document.body.appendChild(heart);
+
+      setTimeout(() => {
+        heart.style.transform = `translate(${(Math.random() - 0.5) * 40}px, -70px) scale(1.4)`;
+        heart.style.opacity = '0';
+      }, 50);
+
+      setTimeout(() => heart.remove(), 1150);
+    });
 
     window.addEventListener('DOMContentLoaded', startFallingFlowers);
   </script>
