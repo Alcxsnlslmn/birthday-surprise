@@ -377,31 +377,75 @@
       width: 100%;
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
-      gap: 14px;
+      gap: 16px;
     }
 
     .destination {
-      min-height: 135px;
+      position: relative;
+      min-height: 140px;
       text-align: left;
-      padding: 18px;
-      background: linear-gradient(145deg, rgba(70, 34, 49, .72), rgba(42, 22, 31, .80));
-      border: 1px solid rgba(255, 190, 215, .16);
-      border-radius: 20px;
+      padding: 20px 18px;
+      background: #231920;
+      border: 1px solid rgba(255, 182, 193, 0.15);
+      border-radius: 18px;
       color: #f6dfe7;
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
-      transition: all 0.3s ease;
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      overflow: hidden;
+      cursor: pointer;
     }
 
+    /* Hover Lift & Glow Effect */
     .destination:hover {
-      border-color: rgba(255, 145, 180, .55);
-      box-shadow: 0 12px 30px rgba(190, 60, 110, .25);
-      transform: translateY(-3px);
+      transform: translateY(-4px);
+      border-color: rgba(255, 105, 180, 0.4);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 0 15px rgba(255, 105, 180, 0.15);
     }
 
-    .destination-letter { display: block; font-family: Consolas, monospace; color: #ff9dbb; font-size: 11px; margin-bottom: 6px; }
-    .destination-title { display: block; font-size: 17px; font-weight: bold; margin-bottom: 6px; color: #ffd8e5; }
-    .destination-description { display: block; color: #c9aab7; font-size: 12px; line-height: 1.45; }
+    /* Selected State Styling */
+    .destination.selected {
+      border: 2px solid #ff69b4;
+      background: linear-gradient(145deg, #2a1b26, #1f141d);
+      box-shadow: 0 0 20px rgba(255, 105, 180, 0.35), inset 0 0 10px rgba(255, 105, 180, 0.1);
+      transform: scale(1.02);
+    }
+
+    .destination.selected::after {
+      content: '💖';
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      font-size: 1.1rem;
+      animation: popIn 0.3s ease-out;
+    }
+
+    .destination-letter {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      color: #ffb6c1;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+      opacity: 0.8;
+    }
+
+    .destination-title {
+      display: block;
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: #ffffff;
+      margin-bottom: 8px;
+    }
+
+    .destination-description {
+      display: block;
+      color: #d1c4cd;
+      font-size: 0.88rem;
+      line-height: 1.5;
+    }
 
     .restaurant-name { font-size: clamp(26px, 7vw, 40px); color: #ff9cbb; font-weight: bold; margin: 8px 0 20px; }
 
@@ -438,6 +482,12 @@
     @keyframes blink {
       0%, 100% { opacity: 1; }
       50% { opacity: 0; }
+    }
+
+    @keyframes popIn {
+      0% { transform: scale(0); opacity: 0; }
+      80% { transform: scale(1.2); }
+      100% { transform: scale(1); opacity: 1; }
     }
 
     .time-options { width: 100%; display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-top: 25px; }
@@ -817,15 +867,15 @@
       {
         name: "Wildflour QC",
         mysteryTitle: "Cozy & Relaxed 🌷",
-        mysteryDescription: "A vibrant, stylish bakery-bistro offering comfort food classics, gourmet pastries, specialty coffee, and decadent desserts.",
+        mysteryDescription: "A warm, stylish bakery-bistro with comfort food classics, specialty coffee, and decadent desserts just for us.",
         location: "Quezon City",
         description: "Known for its inviting bistro setting, artisanal bread, and a wide-ranging menu spanning heart-warming rice bowls, wood-fired pizzas, rich pastas, and fresh bakery pastries. Perfect for taking your time and enjoying dessert together.",
         img: "https://hearthandhomebuddies.com/wp-content/uploads/2024/01/Wildflour-6.jpg"
       },
       {
         name: "Incanta",
-        mysteryTitle: "Unique & Romantic ✨",
-        mysteryDescription: "An enchanting speakeasy-style space with moody ambient lighting, artful interiors, and creative signature culinary dishes.",
+        mysteryTitle: "Speakeasy Romance ✨",
+        mysteryDescription: "An enchanting, moody spot with ambient lighting, artful interiors, and amazing signature dishes.",
         location: "Diliman, Quezon City",
         description: "A hidden gem that emphasizes an intimate, romantic atmosphere with warm glow lighting and plush seating. Its menu brings inventive flavors and specialty drinks designed to make a birthday date feel truly distinct and memorable.",
         img: "http://architizer-prod.imgix.net/media/mediadata/uploads/1747359654963PBIN2345.JPG?w=1680&q=60&auto=format,compress&cs=strip"
@@ -833,57 +883,57 @@
       {
         name: "Lobby 385",
         mysteryTitle: "Fancy & Elegant ✨",
-        mysteryDescription: "A sophisticated dining space with sleek modern interiors, upscale continental cuisine, and finely crafted cocktail pairings.",
+        mysteryDescription: "A sophisticated dining space with modern interiors, upscale continental cuisine, and cocktail pairings.",
         location: "San Juan",
         description: "Exudes luxury and elegance, making it ideal for a proper celebratory dinner. Offers high-end steaks, refined seafood plates, and an exquisite drink selection in a quiet, polished atmosphere.",
         img: "https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?auto=format&fit=crop&w=1000&q=80"
       },
       {
         name: "The Steak Market by Steak.PH",
-        mysteryTitle: "Steak Lover 🥩",
-        mysteryDescription: "A dedicated steakhouse experience centered around premium prime beef cuts, rich savory sauces, and classic steakhouse sides.",
+        mysteryTitle: "Steak & Wine 🥩",
+        mysteryDescription: "A dedicated steakhouse experience centered around prime beef cuts, rich savory sauces, and classic sides.",
         location: "Kapitolyo, Pasig",
         description: "Focuses on high-quality, melt-in-your-mouth steaks cooked precisely to your liking. Accompanied by creamy garlic mashed potatoes, truffle butter, and rich pan drippings for an indulgent birthday feast.",
         img: "https://www.simpol.ph/wp-content/uploads/2026/02/PHOTO-1_Steak.ph_.jpg"
       },
       {
         name: "Le Verre",
-        mysteryTitle: "Romantic Evening 🌹",
-        mysteryDescription: "An intimate, candlelit European-inspired dining nook featuring refined French-accented dishes and an extensive wine list.",
+        mysteryTitle: "Candlelit Evening 🌹",
+        mysteryDescription: "An intimate European-inspired dining nook featuring refined French-accented dishes and a great wine list.",
         location: "Quezon City",
         description: "Features a cozy, low-lit ambiance designed for lingering, romantic conversations over multi-course meals. Highlights exquisite French culinary techniques, artisanal cheeses, and rich sauces.",
         img: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1000&q=80"
       },
       {
         name: "XI by Cafe Guilt",
-        mysteryTitle: "Something Special 💗",
-        mysteryDescription: "A chic, aesthetically pleasing dining location that balances indulgent comfort food with healthy, wholesome options.",
+        mysteryTitle: "Chic & Aesthetic 💕",
+        mysteryDescription: "A beautiful, photogenic spot that perfectly balances indulgent comfort food with lighter options.",
         location: "Quezon City",
         description: "An elevated spin-off of Cafe Guilt with a stylish, photo-worthy interior. Offers a flexible menu ranging from rich creamy pastas and gourmet meats to light, refreshing nourish bowls.",
         img: "https://scontent.fmnl4-7.fna.fbcdn.net/v/t39.30808-6/598360385_842026361922507_6066011679989196672_n.jpg?stp=dst-jpg_tt6&cstp=mx1152x2048&ctp=s1152x2048&_nc_cat=109&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=cc71e4&_nc_eui2=AeHTGbuS31yJWA9R8-Id7A1xeHX2srh1heB4dfayuHWF4Hy1AH5ttfyU_Hccf4DLNOA&_nc_ohc=DFHhmHcImpEQ7kNvwH1rpUT&_nc_oc=AdrIjp-t8cbrUPmcItEMEfiucnX1gguUJqjjanTE99KNpMz0GHUW0evsf8phTFklEzxvIf9kPOqqNXBTOgNWTtMs&_nc_zt=23&_nc_ht=scontent.fmnl4-7.fna&_nc_gid=poAUlZWwATwqX0-XFg_edw&_nc_ss=7b2a8&oh=00_AQFSSusu3WD9CN-VFl99WztSrXhv0Fu1rRYaaaVeKItOGw&oe=6A866ECB"
       },
       {
         name: "La Spezia",
-        mysteryTitle: "Italian Birthday 🍝",
-        mysteryDescription: "An authentic, charming Italian trattoria serving freshly handcrafted pasta, traditional risotto, and classic Italian desserts.",
+        mysteryTitle: "Pasta & Date Night 🍝",
+        mysteryDescription: "A charming Italian trattoria serving freshly handcrafted pasta, traditional risotto, and classic desserts.",
         location: "Quezon City",
         description: "Focuses on simple, high-quality ingredients cooked with traditional Italian passion. Set in an unpretentious, cozy space perfect for enjoying house-made tagliatelle, fine olive oils, and authentic tiramisu.",
         img: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=1000&q=80"
       },
       {
         name: "Delgado 112",
-        mysteryTitle: "Classy Evening 🌸",
-        mysteryDescription: "A beautifully restored heritage house offering refined Spanish-Filipino fusion dishes in a historic, classy atmosphere.",
+        mysteryTitle: "Heritage & Charm 🌸",
+        mysteryDescription: "A restored historic home offering refined Spanish-Filipino fusion dishes in a classy, romantic atmosphere.",
         location: "Quezon City",
         description: "Combines old-world charm with modern culinary craft. The warm wooden accents, ambient lighting, and rich flavor pairings create a sophisticated backdrop for an unforgettable night out.",
         img: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiBTxMKUj4SHg0UC6dVW8t73pm_A78omKvoGSET0kP7xfoPR1SB-nH9qIP70c3jISf1CmJZgGXOUSwIN6I8j8PiQAFrnSw7izbCiNVkO3qccs32k_OCnfs6sITEI5v-vQVKiBUSQ9pZGLw/w1200-h630-p-k-no-nu/ASC_3028.JPG"
       },
       {
         name: "Black Bull Steakhouse & Bar",
-        mysteryTitle: "Modern Steakhouse 🥩✨",
-        mysteryDescription: "A sleek, contemporary steakhouse delivering premium grilled meats, gourmet sides, and handcrafted cocktails in a vibrant setting.",
+        mysteryTitle: "Rooftop & City Lights 🍸✨",
+        mysteryDescription: "A sleek open-air spot with breathtaking evening views, premium grilled dishes, and handcrafted cocktails.",
         location: "Ayala Malls Vertis North, Quezon City",
-        description: "Offers an elevated yet approachable steak dining experience right in Vertis North. Celebrated for its juicy, perfectly seear prime steaks, savory sides, and stylish modern dining space suited for a memorable date night.",
+        description: "Offers an elevated yet approachable steak dining experience right in Vertis North. Celebrated for its juicy, perfectly seared prime steaks, savory sides, and stylish modern dining space suited for a memorable date night.",
         img: "https://servicefinder.com.ph/uploads/banners/b1770590676.webp"
       }
     ];
@@ -1040,13 +1090,14 @@
       grid.innerHTML = '';
 
       destinations.forEach((dest, index) => {
-        const btn = document.createElement('button');
-        btn.className = 'destination';
+        const btn = document.createElement('div');
+        const isSelected = selectedDestination && selectedDestination.name === dest.name;
+        btn.className = `destination ${isSelected ? 'selected' : ''}`;
         btn.onclick = () => selectDestination(index);
 
         btn.innerHTML = `
           <span class="destination-letter">OPTION 0${index + 1}</span>
-          <span class="destination-title font-serif">${dest.mysteryTitle}</span>
+          <span class="destination-title">${dest.mysteryTitle}</span>
           <span class="destination-description">${dest.mysteryDescription}</span>
         `;
         grid.appendChild(btn);
@@ -1055,6 +1106,8 @@
 
     function selectDestination(index) {
       selectedDestination = destinations[index];
+      renderDestinations(); // Re-render to update the selected state CSS class instantly
+      
       document.getElementById('mysteryLocation').textContent = selectedDestination.location;
       document.getElementById('mysteryDescription').textContent = selectedDestination.mysteryDescription;
       showScreen('mysteryDetails');
