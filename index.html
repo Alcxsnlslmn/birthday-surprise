@@ -2,9 +2,9 @@
 <html lang="en">
 	<head>
 		<meta charset="UTF-8">
-			<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-				<title>A Special Surprise 💖</title>
-				<style>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<title>A Special Surprise 💖</title>
+		<style>
     /* =====================================================
        1. GLOBAL BASE & CROSS-BROWSER RESET
     ===================================================== */
@@ -49,6 +49,7 @@
       flex-direction: column;
       align-items: center;
       position: relative;
+      z-index: 10; /* Ensures buttons sit above falling animations */
     }
 
     .center {
@@ -175,6 +176,8 @@
     .open-birthday {
       opacity: 0;
       animation: titleAppear 0.8s ease 0.8s forwards;
+      position: relative;
+      z-index: 999; /* Forces the button to be on the highest layer */
     }
 
     /* Keyframe Animations */
@@ -383,10 +386,10 @@
     /* =====================================================
        6. FLOWER BLAST ANIMATION
     ===================================================== */
-    #flowerBlast {
+    #flowerBlast, #flowerBlast * {
       position: fixed;
       inset: 0;
-      pointer-events: none;
+      pointer-events: none !important;
       z-index: 9999;
       overflow: hidden;
     }
@@ -398,6 +401,7 @@
       animation: flowerBurst 1.25s ease-out forwards;
       will-change: transform, opacity;
       user-select: none;
+      pointer-events: none !important;
     }
 
     @keyframes flowerBurst {
@@ -413,311 +417,282 @@
       .screen { padding: 20px 10px; }
     }
   </style>
-			</head>
-			<body>
-				<!-- FLOWER CONFETTI CONTAINER -->
-				<div id="flowerBlast"></div>
-				<!-- =====================================================
+	</head>
+	<body>
+		<!-- FLOWER CONFETTI CONTAINER -->
+		<div id="flowerBlast"></div>
+
+		<!-- =====================================================
        1. BIRTHDAY ENTRANCE SCREEN
   ===================================================== -->
-				<section id="birthdayEntrance" class="screen center">
-					<div class="birthday-entrance">
-						<div class="birthday-flowers">🌸 🌷 🌼 🌹 🌸</div>
-						<div class="birthday-title">HAPPY BIRTHDAY</div>
-						<div class="birthday-name">My Love 💗</div>
-						<div class="birthday-message">
-        Today is your day.
-        
-							<br>
-								<br>
-        So before anything else...
-        
-									<br>
+		<section id="birthdayEntrance" class="screen center">
+			<div class="birthday-entrance">
+				<div class="birthday-flowers">🌸 🌷 🌼 🌹 🌸</div>
+				<div class="birthday-title">HAPPY BIRTHDAY</div>
+				<div class="birthday-name">My Love 💗</div>
+				<div class="birthday-message">
+        Today is your day. <br><br>
+        So before anything else... <br>
         I just wanted to make you feel a little extra loved. 🥰
-      
-									</div>
-									<div class="open-birthday">
-										<button class="primary" onclick="openBirthday()">
+      </div>
+				<div class="open-birthday">
+					<button class="primary" onclick="openBirthday()">
           OPEN YOUR SURPRISE 💌
         </button>
-									</div>
-								</div>
-							</section>
-							<!-- =====================================================
+				</div>
+			</div>
+		</section>
+
+		<!-- =====================================================
        2. LOADING / TERMINAL SCREEN
   ===================================================== -->
-							<section id="loadingScreen" class="screen center hidden">
-								<div class="card">
-									<h2>Initializing Surprise Protocol... 💫</h2>
-									<div class="terminal-box" id="terminalLog">
-        > Accessing memory logs...
-										<br>
-										</div>
-										<div class="progress">
-											<div id="bar" class="bar"></div>
-										</div>
-										<div id="percent" class="percent">0%</div>
-									</div>
-								</section>
-								<!-- =====================================================
+		<section id="loadingScreen" class="screen center hidden">
+			<div class="card">
+				<h2>Initializing Surprise Protocol... 💫</h2>
+				<div class="terminal-box" id="terminalLog">
+        > Accessing memory logs... <br>
+				</div>
+				<div class="progress">
+					<div id="bar" class="bar"></div>
+				</div>
+				<div id="percent" class="percent">0%</div>
+			</div>
+		</section>
+
+		<!-- =====================================================
        3. WELCOME SCREEN
   ===================================================== -->
-								<section id="welcome" class="screen hidden center">
-									<div class="heart">💗</div>
-									<h1>Hey, 
-										<span class="accent">My Love</span>!
-									</h1>
-									<p class="subtitle">
-      You have a very important birthday notification.
-      
-										<br>
-											<br>
-      And no...
-      
-												<br>
-      it's not a school work. 😌
-      
-													<br>
-														<br>
-      Now that you're starting your 2nd year, I know how hard you will be studying and how much effort you will put into everything you do. 
-      
-															<br>
-      So today, take a deep breath, leave the stress behind for a moment, and let me take care of you. 
-      
-																<br>
-																	<br>
-      You deserve all the love, rest, and celebration in the world today. 🥰
-    
-																	</p>
-																	<div class="buttons">
-																		<button class="primary" onclick="showQuestion()">
-        OPEN NOTIFICATION 💌
-      </button>
-																	</div>
-																</section>
-																<!-- =====================================================
+		<section id="welcome" class="screen hidden center">
+			<div class="heart">💗</div>
+			<h1>Hey, <span class="accent">My Love</span>!</h1>
+			<p class="subtitle">
+        You have a very important birthday notification. <br><br>
+        And no... <br>
+        it's not a school work. 😌 <br><br>
+        Now that you're starting your 2nd year, I know how hard you will be studying and how much effort you will put into everything you do. <br>
+        So today, take a deep breath, leave the stress behind for a moment, and let me take care of you. <br><br>
+        You deserve all the love, rest, and celebration in the world today. 🥰
+      </p>
+			<div class="buttons">
+				<button class="primary" onclick="showQuestion()">
+          OPEN NOTIFICATION 💌
+        </button>
+			</div>
+		</section>
+
+		<!-- =====================================================
        4. QUESTION SCREEN
   ===================================================== -->
-																<section id="question" class="screen hidden center">
-																	<div class="card">
-																		<div style="font-size:24px; font-weight:bold; margin-bottom:10px;">
-        Are you ready for a little surprise?
-      </div>
-																		<div class="subtitle">
-        I spent a little time coding this instead of just sending a boring message. 🤓❤️
-      </div>
-																		<div class="buttons">
-																			<button class="primary" onclick="showRuleScreen()">
-          YES, SHOW ME 💗
-        </button>
-																			<button id="scared" class="secondary" onmouseenter="moveDodgingButton('scared', event)" ontouchstart="moveDodgingButton('scared', event)">
-          No Im not ready
-        </button>
-																		</div>
-																	</div>
-																</section>
-																<!-- =====================================================
+		<section id="question" class="screen hidden center">
+			<div class="card">
+				<div style="font-size:24px; font-weight:bold; margin-bottom:10px;">
+          Are you ready for a little surprise?
+        </div>
+				<div class="subtitle">
+          I spent a little time coding this instead of just sending a boring message. 🤓❤️
+        </div>
+				<div class="buttons">
+					<button class="primary" onclick="showRuleScreen()">
+            YES, SHOW ME 💗
+          </button>
+					<button id="scared" class="secondary" onmouseenter="moveDodgingButton('scared', event)" ontouchstart="moveDodgingButton('scared', event)">
+            No Im not ready
+          </button>
+				</div>
+			</div>
+		</section>
+
+		<!-- =====================================================
        4.5 RULE SCREEN
   ===================================================== -->
-																<section id="ruleScreen" class="screen hidden center">
-																	<div class="card">
-																		<h2>Choose your birthday experience 💗</h2>
-																		<div id="dedicatedRulesNote" class="birthday-note cursor"></div>
-																		<div class="buttons" style="margin-top: 25px;">
-																			<button class="primary" onclick="showDestinationSelector()">
-          Understood 💖
-        </button>
-																			<button id="notUnderstoodBtn" class="secondary" onmouseenter="moveDodgingButton('notUnderstoodBtn', event)" ontouchstart="moveDodgingButton('notUnderstoodBtn', event)">
-          Not
-        </button>
-																		</div>
-																	</div>
-																</section>
-																<!-- =====================================================
+		<section id="ruleScreen" class="screen hidden center">
+			<div class="card">
+				<h2>Choose your birthday experience 💗</h2>
+				<div id="dedicatedRulesNote" class="birthday-note cursor"></div>
+				<div class="buttons" style="margin-top: 25px;">
+					<button class="primary" onclick="showDestinationSelector()">
+            Understood 💖
+          </button>
+					<button id="notUnderstoodBtn" class="secondary" onmouseenter="moveDodgingButton('notUnderstoodBtn', event)" ontouchstart="moveDodgingButton('notUnderstoodBtn', event)">
+            Not
+          </button>
+				</div>
+			</div>
+		</section>
+
+		<!-- =====================================================
        5. DESTINATION SELECTOR SCREEN
   ===================================================== -->
-																<section id="destinationSelector" class="screen hidden">
-																	<div class="selector-header">
-																		<h2>Pick a vibe for your special day 💗</h2>
-																		<p class="subtitle" style="margin-top: 15px;">
-        The restaurant names are hidden for now. 😌
-        
-																			<br>
-        Choose based only on the kind of birthday experience you want.
-      
-																			</p>
-																		</div>
-																		<div id="destinationGrid" class="destination-grid"></div>
-																		<div class="footer">
-      available_options: 9 • mode: mystery
-    </div>
-																	</section>
-																	<!-- =====================================================
+		<section id="destinationSelector" class="screen hidden">
+			<div class="selector-header">
+				<h2>Pick a vibe for your special day 💗</h2>
+				<p class="subtitle" style="margin-top: 15px;">
+          The restaurant names are hidden for now. 😌 <br>
+          Choose based only on the kind of birthday experience you want.
+        </p>
+			</div>
+			<div id="destinationGrid" class="destination-grid"></div>
+			<div class="footer">
+        available_options: 9 • mode: mystery
+      </div>
+		</section>
+
+		<!-- =====================================================
        6. MYSTERY DETAILS SCREEN
   ===================================================== -->
-																	<section id="mysteryDetails" class="screen hidden center">
-																		<div class="invite">
-																			<div style="font-size:48px; margin: 10px 0;">🔐</div>
-																			<h2>You found a birthday plan. 💗</h2>
-																			<p class="subtitle">Here's what this plan feels like...</p>
-																			<div class="details">
-																				<div class="detail">
-																					<span>📍 Location</span>
-																					<b id="mysteryLocation"></b>
-																				</div>
-																			</div>
-																			<div id="mysteryDescription" class="message"></div>
-																			<div class="note" style="text-align: center;">
-        The restaurant is still a secret. 🤫
-        
-																				<br>
-																					<br>
-        If you like this kind of birthday, reveal the destination. ❤️
-      
-																					</div>
-																					<div class="buttons">
-																						<button class="secondary" onclick="showDestinationSelector()">
-          ← GO BACK
-        </button>
-																						<button class="primary" onclick="revealRestaurant()">
-          REVEAL ❤️
-        </button>
-																					</div>
-																				</div>
-																			</section>
-																			<!-- =====================================================
+		<section id="mysteryDetails" class="screen hidden center">
+			<div class="invite">
+				<div style="font-size:48px; margin: 10px 0;">🔐</div>
+				<h2>You found a birthday plan. 💗</h2>
+				<p class="subtitle">Here's what this plan feels like...</p>
+				<div class="details">
+					<div class="detail">
+						<span>📍 Location</span>
+						<b id="mysteryLocation"></b>
+					</div>
+				</div>
+				<div id="mysteryDescription" class="message"></div>
+				<div class="note" style="text-align: center;">
+          The restaurant is still a secret. 🤫 <br><br>
+          If you like this kind of birthday, reveal the destination. ❤️
+        </div>
+				<div class="buttons">
+					<button class="secondary" onclick="showDestinationSelector()">
+            ← GO BACK
+          </button>
+					<button class="primary" onclick="revealRestaurant()">
+            REVEAL ❤️
+          </button>
+				</div>
+			</div>
+		</section>
+
+		<!-- =====================================================
        7. RESTAURANT DETAILS SCREEN
   ===================================================== -->
-																			<section id="restaurantDetails" class="screen center hidden">
-																				<div class="card restaurant-card">
-																					<span class="badge">Dinner & Date Spot 🥂</span>
-																					<h2>A Special Evening Out</h2>
-																					<p style="margin: 10px 0 20px; color: #efd4de;">I picked out a place for us to celebrate!</p>
-																					<img id="restaurantImg" src="" alt="Restaurant Atmosphere" class="restaurant-img">
-																						<h3 id="restaurantName" class="restaurant-name">The Cozy Table</h3>
-																						<div class="details">
-																							<div class="detail">
-																								<span>📍 Location</span>
-																								<b id="restaurantLocation">Quezon City</b>
-																							</div>
-																						</div>
-																						<p id="restaurantDescription" style="font-size: 0.95rem; color: #d4a8b9; margin-top: 10px; line-height: 1.6;"></p>
-																						<div style="margin-top: 25px; display: flex; flex-direction: column; gap: 10px;">
-																							<button class="primary" onclick="showTimeSelection()">RESERVE OUR SPOT 🍷</button>
-																							<button class="secondary" onclick="showDestinationSelector()">← Choose Another Spot</button>
-																						</div>
-																					</div>
-																				</section>
-																				<!-- =====================================================
+		<section id="restaurantDetails" class="screen center hidden">
+			<div class="card restaurant-card">
+				<span class="badge">Dinner & Date Spot 🥂</span>
+				<h2>A Special Evening Out</h2>
+				<p style="margin: 10px 0 20px; color: #efd4de;">I picked out a place for us to celebrate!</p>
+				<img id="restaurantImg" src="" alt="Restaurant Atmosphere" class="restaurant-img">
+				<h3 id="restaurantName" class="restaurant-name">The Cozy Table</h3>
+				<div class="details">
+					<div class="detail">
+						<span>📍 Location</span>
+						<b id="restaurantLocation">Quezon City</b>
+					</div>
+				</div>
+				<p id="restaurantDescription" style="font-size: 0.95rem; color: #d4a8b9; margin-top: 10px; line-height: 1.6;"></p>
+				<div style="margin-top: 25px; display: flex; flex-direction: column; gap: 10px;">
+					<button class="primary" onclick="showTimeSelection()">RESERVE OUR SPOT 🍷</button>
+					<button class="secondary" onclick="showDestinationSelector()">← Choose Another Spot</button>
+				</div>
+			</div>
+		</section>
+
+		<!-- =====================================================
        8. TIME SELECTION SCREEN
   ===================================================== -->
-																				<section id="timeSelection" class="screen hidden center">
-																					<div class="invite">
-																						<div style="font-size:48px; margin: 10px 0;">🕰️</div>
-																						<h2>Now you choose the time. 💗</h2>
-																						<p class="subtitle">
-        August 28, 2026
-        
-																							<br>
-																								<br>
-        Which feels better for your birthday?
-      
-																								</p>
-																								<div class="time-options">
-																									<button class="time-option" onclick="selectTime('12:00 PM')">
-																										<span class="time-icon">☀️</span>
-																										<span class="time-title">12:00 PM</span>
-																										<span class="time-description">A little birthday lunch together.</span>
-																									</button>
-																									<button class="time-option" onclick="selectTime('6:00 PM')">
-																										<span class="time-icon">🌙</span>
-																										<span class="time-title">6:00 PM</span>
-																										<span class="time-description">A birthday dinner together.</span>
-																									</button>
-																								</div>
-																								<div class="note" style="text-align: center;">
-  Don't choose based on what's easiest for me.
-  
-																									<br>
-																										<br>
-  Think about what you actually want.
-  
-																											<br>
-																												<br>
-																													<b>It's your birthday. 🥰</b>
-																													<br>
-																														<br>
-																															<span style="font-size: 0.85rem; color: #ffb3cb;">
-    ⏰ Please submit your pick by 
-																																<b>August 25</b> so I can handle the reservation!
-  
-																															</span>
-																														</div>
-																													</div>
-																												</section>
-																												<!-- =====================================================
+		<section id="timeSelection" class="screen hidden center">
+			<div class="invite">
+				<div style="font-size:48px; margin: 10px 0;">🕰️</div>
+				<h2>Now you choose the time. 💗</h2>
+				<p class="subtitle">
+          August 28, 2026 <br><br>
+          Which feels better for your birthday?
+        </p>
+				<div class="time-options">
+					<button class="time-option" onclick="selectTime('12:00 PM')">
+						<span class="time-icon">☀️</span>
+						<span class="time-title">12:00 PM</span>
+						<span class="time-description">A little birthday lunch together.</span>
+					</button>
+					<button class="time-option" onclick="selectTime('6:00 PM')">
+						<span class="time-icon">🌙</span>
+						<span class="time-title">6:00 PM</span>
+						<span class="time-description">A birthday dinner together.</span>
+					</button>
+				</div>
+				<div class="note" style="text-align: center;">
+          Don't choose based on what's easiest for me. <br><br>
+          Think about what you actually want. <br><br>
+          <b>It's your birthday. 🥰</b> <br><br>
+          <span style="font-size: 0.85rem; color: #ffb3cb;">
+            ⏰ Please submit your pick by <b>August 25</b> so I can handle the reservation!
+          </span>
+        </div>
+			</div>
+		</section>
+
+		<!-- =====================================================
        9. FINAL QUESTION SCREEN
   ===================================================== -->
-																												<section id="finalQuestion" class="screen hidden center">
-																													<div class="card">
-																														<div style="font-size:48px; margin-bottom: 10px;">💗</div>
-																														<h2>You chose... ❤️</h2>
-																														<div id="finalRestaurantName" class="restaurant-name"></div>
-																														<div class="details">
-																															<div class="detail">
-																																<span>📅 Date</span>
-																																<b>August 28, 2026</b>
-																															</div>
-																															<div class="detail">
-																																<span>⏰ Time</span>
-																																<b id="finalTime"></b>
-																															</div>
-																														</div>
-																														<div class="note cursor" id="typewriterNote"></div>
-																														<p class="subtitle" style="margin-top: 15px;">
-        Are you sure you want to make this our birthday date?
-        
-																															<br>
-																																<br>
-        You can still go back if you want to change something. 🥰
-      
-																																</p>
-																															</div>
-																															<div class="buttons">
-																																<button class="secondary" onclick="showTimeSelection()">
-        ← GO BACK
-      </button>
-																																<button class="primary" onclick="accept()">
-        PROCEED ❤️
-      </button>
-																															</div>
-																														</section>
-																														<!-- =====================================================
+		<section id="finalQuestion" class="screen hidden center">
+			<div class="card">
+				<div style="font-size:48px; margin-bottom: 10px;">💗</div>
+				<h2>You chose... ❤️</h2>
+				<div id="finalRestaurantName" class="restaurant-name"></div>
+				<div class="details">
+					<div class="detail">
+						<span>📅 Date</span>
+						<b>August 28, 2026</b>
+					</div>
+					<div class="detail">
+						<span>⏰ Time</span>
+						<b id="finalTime"></b>
+					</div>
+				</div>
+				<div class="note cursor" id="typewriterNote"></div>
+				<p class="subtitle" style="margin-top: 15px;">
+          Are you sure you want to make this our birthday date? <br><br>
+          You can still go back if you want to change something. 🥰
+        </p>
+			</div>
+			<div class="buttons">
+				<button class="secondary" onclick="showTimeSelection()">
+          ← GO BACK
+        </button>
+				<button class="primary" onclick="accept()">
+          PROCEED ❤️
+        </button>
+			</div>
+		</section>
+
+		<!-- =====================================================
        10. SUCCESS / CONFIRMATION SCREEN
   ===================================================== -->
-																														<section id="accepted" class="screen hidden center">
-																															<div class="heart">🥰</div>
-																															<h1 class="accent">Birthday Date Confirmed! ❤️</h1>
-																															<p class="subtitle">Our birthday date is officially chosen. ❤️</p>
-																															<div class="card terminal-box" style="margin: 20px 0; min-height: 250px;">
-																																<div id="terminalConfirmation" style="line-height: 2;"></div>
-																															</div>
-																															<!-- SCREENSHOT INSTRUCTION BOX -->
-																															<div style="background: rgba(255, 110, 165, 0.15); border: 1px dashed #ff8cb3; padding: 18px; border-radius: 16px; margin: 15px 0; max-width: 480px; width: 100%;">
-																																<p style="font-size: 1.05rem; font-weight: bold; color: #ffd8e5; margin-bottom: 6px;">
-        📸 Send Me a Screenshot!
-      </p>
-																																<p style="font-size: 0.9rem; color: #efd4de; line-height: 1.5;">
-        Take a screenshot of this page and send it to me so I can book our spot! 🥰
-      </p>
-																															</div>
-																															<p class="accepted">See you there, my love. ❤️</p>
-																															<p class="subtitle">August 28, 2026 • Our Birthday Date</p>
-																														</section>
-																														<!-- =====================================================
+		<section id="accepted" class="screen hidden center">
+			<div class="heart">🥰</div>
+			<h1 class="accent">Birthday Date Confirmed! ❤️</h1>
+			<p class="subtitle">Our birthday date is officially chosen. ❤️</p>
+			<div class="card terminal-box" style="margin: 20px 0; min-height: 250px;">
+				<div id="terminalConfirmation" style="line-height: 2;"></div>
+			</div>
+			
+			<!-- SCREENSHOT INSTRUCTION BOX -->
+			<div style="background: rgba(255, 110, 165, 0.15); border: 1px dashed #ff8cb3; padding: 18px; border-radius: 16px; margin: 15px 0; max-width: 480px; width: 100%;">
+				<p style="font-size: 1.05rem; font-weight: bold; color: #ffd8e5; margin-bottom: 6px;">
+          📸 Send Me a Screenshot!
+        </p>
+				<p style="font-size: 0.9rem; color: #efd4de; line-height: 1.5;">
+          Take a screenshot of this page and send it to me so I can book our spot! 🥰
+        </p>
+			</div>
+
+			<!-- EMAIL ACTION BUTTON -->
+			<button onclick="sendEmailChoice()" class="primary" style="margin-top: 10px;">
+        Send Me Your Pick ✉️
+      </button>
+
+			<p class="accepted" style="margin-top: 20px;">See you there, my love. ❤️</p>
+			<p class="subtitle">August 28, 2026 • Our Birthday Date</p>
+		</section>
+
+		<!-- =====================================================
        JAVASCRIPT CONTROLLER
   ===================================================== -->
-																														<script>
+		<script>
     const destinations = [
       {
         name: "Wildflour QC",
@@ -741,7 +716,7 @@
         mysteryDescription: "A sophisticated dining space with sleek modern interiors, upscale continental cuisine, and finely crafted cocktail pairings.",
         location: "San Juan",
         description: "Exudes luxury and elegance, making it ideal for a proper celebratory dinner. Offers high-end steaks, refined seafood plates, and an exquisite drink selection in a quiet, polished atmosphere.",
-        img: "https://scontent.fmnl4-4.fna.fbcdn.net/v/t39.30808-6/474573106_122205696902217921_4280507496679201371_n.jpg?stp=cp6_dst-jpg_tt6&cstp=mx2048x1428&ctp=s960x960&_nc_cat=107&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=cc71e4&_nc_eui2=AeH6qCWwQ1QR3I_QgYIMWoIGyApSCMCK7AvIClIIwIrsC7BxLSZ7kQ7v9oq93SCbTqM&_nc_ohc=u5UdlMZSlpoQ7kNvwGFC3zC&_nc_oc=AdpnXiygBm_S7pg0d2D8XZ2xqJht1ruuzVuQjv7Xi2bwZR8pbeXy79RlC-JOr8JRW2Oj0LNo4ZJ2UxeZqjdlv9Ok&_nc_zt=23&_nc_ht=scontent.fmnl4-4.fna&_nc_gid=nXt6cMkf4f5--NZnZKjF8A&_nc_ss=7b2a8&oh=00_AQFKG0TbLfBYCuwZbsakU96dCdl77z-AMiZSWCykIZP54w&oe=6A869BA1"
+        img: "https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?auto=format&fit=crop&w=1000&q=80"
       },
       {
         name: "The Steak Market by Steak.PH",
@@ -757,7 +732,7 @@
         mysteryDescription: "An intimate, candlelit European-inspired dining nook featuring refined French-accented dishes and an extensive wine list.",
         location: "Quezon City",
         description: "Features a cozy, low-lit ambiance designed for lingering, romantic conversations over multi-course meals. Highlights exquisite French culinary techniques, artisanal cheeses, and rich sauces.",
-        img: "https://scontent.fmnl4-1.fna.fbcdn.net/v/t51.82787-15/736198534_18541792183075237_7569032510351521816_n.jpg?stp=dst-jpg_tt6&cstp=mx1509x1207&ctp=s1509x1207&_nc_cat=100&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeHlvblwPexb-9y9Pi4ix8OEVYbUIFsbhNtVhtQgWxuE25epoWjWpAd1yvO1MFBajDs&_nc_ohc=hKyYruMyYnUQ7kNvwHQr88x&_nc_oc=AdpnXOHnY3SK120Ai3SMnjz4x109ABPB3FR9mVf4gzSgtx7PB9mqXFARjRwQoqlx_NnhLGnhGP_HMbO53L1RDROO&_nc_zt=23&_nc_ht=scontent.fmnl4-1.fna&_nc_gid=5Zdsfej6iboRzPfSj8-xog&_nc_ss=7b2a8&oh=00_AQEJ3wTEeFSjsRRdTDc9ZDeoJSt13FwFJvTJnqzLLYI3Ug&oe=6A869C87"
+        img: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1000&q=80"
       },
       {
         name: "XI by Cafe Guilt",
@@ -773,7 +748,7 @@
         mysteryDescription: "An authentic, charming Italian trattoria serving freshly handcrafted pasta, traditional risotto, and classic Italian desserts.",
         location: "Quezon City",
         description: "Focuses on simple, high-quality ingredients cooked with traditional Italian passion. Set in an unpretentious, cozy space perfect for enjoying house-made tagliatelle, fine olive oils, and authentic tiramisu.",
-        img: "https://scontent.fmnl4-5.fna.fbcdn.net/v/t39.30808-6/474144989_1059831472827543_6099703118712088561_n.jpg?stp=dst-jpg_tt6&cstp=mx960x720&ctp=s960x960&_nc_cat=111&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=cc71e4&_nc_eui2=AeHxupRFB1Z6lwj8Xsfw1xPy_gy4E8W7SUL-DLgTxbtJQnbhgdrUPtvNz9rZR6X3QAU&_nc_ohc=jCXQp2qyoBsQ7kNvwFWNePo&_nc_oc=AdqDhGIx14V8YDGfBFpftOsG-GhraGO6jkdaD-MJa74P0QFId35Ffz72fTOm34LCucoW53H3OBv7tbHkOGpgbLrJ&_nc_zt=23&_nc_ht=scontent.fmnl4-5.fna&_nc_gid=RXXZ_6HNtxkTquOmVReqRA&_nc_ss=7b2a8&oh=00_AQFsfArb4aN9F_zUPnO5qa_4LXtqCXqrO-1reA-dLOUffA&oe=6A86745F"
+        img: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=1000&q=80"
       },
       {
         name: "Delgado 112",
@@ -843,8 +818,7 @@
           if (bar) bar.style.width = progress + '%';
           if (percent) percent.textContent = progress + '%';
 
-          log.innerHTML += messages[i] + "
-																															<br>";
+          log.innerHTML += messages[i] + "<br>";
           i++;
         } else {
           clearInterval(interval);
@@ -862,8 +836,7 @@
       let lineIndex = 0;
       const interval = setInterval(() => {
         if (lineIndex < lines.length) {
-          container.innerHTML += lines[lineIndex] + '
-																																<br>';
+          container.innerHTML += lines[lineIndex] + '<br>';
           lineIndex++;
         } else {
           clearInterval(interval);
@@ -878,7 +851,7 @@
 
     function showRuleScreen() {
       showScreen('ruleScreen');
-      const ruleText = "One important rule:\n\nDon't think about me.\nDon't think about what's easiest for me.\nDon't think about my work schedule.\n\nThink about what YOU want. ❤️\n\nIt's your birthday. You get to be a little selfish. 🥰";
+      const ruleText = "One important rule:\n\nDon't think about me.\nDon't think about what's easiest for me.\nDon't think about my work schedule.\n\nThink about what YOU want. ❤️\n\nIt's your birthday. You get to be a little selfish. 🥰\n\n(p.s. Let me know your pick by Aug 25 so I can lock in our reservation! 😉)";
       startTypewriter('dedicatedRulesNote', ruleText, 30);
     }
 
@@ -918,8 +891,7 @@
       function typeChar() {
         if (index < fullText.length) {
           const char = fullText.charAt(index);
-          container.innerHTML += (char === '\n') ? '
-																																	<br>' : char;
+          container.innerHTML += (char === '\n') ? '<br>' : char;
           index++;
           activeTypingTimeout = setTimeout(typeChar, speed);
         } else {
@@ -945,10 +917,9 @@
         btn.onclick = () => selectDestination(index);
 
         btn.innerHTML = `
-          
-																																		<span class="destination-letter">OPTION 0${index + 1}</span>
-																																		<span class="destination-title">${dest.mysteryTitle}</span>
-																																		<span class="destination-description">${dest.mysteryDescription}</span>
+          <span class="destination-letter">OPTION 0${index + 1}</span>
+          <span class="destination-title">${dest.mysteryTitle}</span>
+          <span class="destination-description">${dest.mysteryDescription}</span>
         `;
         grid.appendChild(btn);
       });
@@ -1007,6 +978,17 @@
       ];
 
       startTerminalLineByLine('terminalConfirmation', terminalLines, 300);
+    }
+
+    function sendEmailChoice() {
+      const restName = selectedDestination ? selectedDestination.name : "Selected Spot";
+      const restTime = selectedTime || "12:00 PM";
+
+      const subject = encodeURIComponent("My Birthday Date Choice! 💖");
+      const body = encodeURIComponent(`Hey! Here is what I chose for my birthday date:\n\n📍 Place: ${restName}\n⏰ Time: ${restTime}\n📅 Date: August 28, 2026\n\nCan't wait! 🥰`);
+
+      // Replace with your actual email address:
+      window.location.href = `mailto:your-email@gmail.com?subject=${subject}&body=${body}`;
     }
 
     function triggerFlowerBlast() {
@@ -1073,7 +1055,6 @@
     }
 
     window.addEventListener('DOMContentLoaded', startFallingFlowers);
-  
-																																	</script>
-																																</body>
-																															</html>
+  </script>
+	</body>
+</html>
