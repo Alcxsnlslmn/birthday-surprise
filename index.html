@@ -1,1211 +1,248 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-		<title>A Special Surprise 💖</title>
-		
-		<!-- GOOGLE FONTS FOR ROMANTIC TYPOGRAPHY -->
-		<link rel="preconnect" href="https://fonts.googleapis.com">
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,800;1,400&family=Sacramento&display=swap" rel="stylesheet">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pick a Vibe 💖</title>
 
-		<style>
-    /* =====================================================
-       1. GLOBAL BASE & CROSS-BROWSER RESET
-    ===================================================== */
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;1,400&family=Quicksand:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- EmailJS Library for direct automatic sending -->
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+
+  <style>
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    html, body {
-      min-height: 100vh;
-      width: 100%;
-      background:
-        radial-gradient(circle at 15% 10%, rgba(255, 120, 165, .28), transparent 35%),
-        radial-gradient(circle at 85% 85%, rgba(255, 180, 110, .18), transparent 35%),
-        radial-gradient(circle at 50% 45%, rgba(170, 45, 100, .25), transparent 50%),
-        linear-gradient(135deg, #180711, #2f121f 45%, #180b13);
-      background-attachment: fixed;
-      color: #f7e6ed;
-      overflow-x: hidden;
     }
 
     body {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 20px 12px;
-    }
-
-    /* Font Classes */
-    .font-serif {
-      font-family: 'Playfair Display', Georgia, serif;
-    }
-    .font-script {
-      font-family: 'Sacramento', cursive;
-    }
-
-    /* =====================================================
-       2. LAYOUT & SCREENS
-    ===================================================== */
-    .screen {
-      width: 100%;
-      max-width: 840px;
-      min-height: 80vh;
-      padding: 25px 15px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      position: relative;
-      z-index: 10;
-    }
-
-    .center {
-      justify-content: center;
-      text-align: center;
-    }
-
-    .hidden {
-      display: none !important;
-    }
-
-    /* Buttons Reset & Unified Styling */
-    button, .map-button {
-      font: inherit;
-      border: none;
-      outline: none;
-      cursor: pointer;
-      border-radius: 25px;
-      padding: 12px 24px;
-      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-      letter-spacing: 0.5px;
-      -webkit-appearance: none;
-      appearance: none;
-    }
-
-    button:hover, .map-button:hover {
-      transform: translateY(-2px);
-    }
-
-    button.primary {
-      background: linear-gradient(135deg, #ff6ea5, #e03272);
+      background-color: #181016; /* Dark moody romantic theme */
       color: #ffffff;
-      padding: 14px 28px;
+      font-family: 'Quicksand', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 40px 20px;
+    }
+
+    .container {
+      max-width: 1050px;
+      width: 100%;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 35px;
+    }
+
+    .header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem;
+      color: #ffd1dc;
+      margin-bottom: 8px;
+    }
+
+    .header p {
+      color: #cbb8c4;
+      font-size: 1rem;
+    }
+
+    /* Grid Layout */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+    }
+
+    /* Card Base Styling */
+    .vibe-card {
+      background: #231920;
+      border: 1px solid rgba(255, 182, 193, 0.15);
+      border-radius: 16px;
+      padding: 24px;
+      position: relative;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      overflow: hidden;
+    }
+
+    /* Hover Lift Effect */
+    .vibe-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(255, 105, 180, 0.4);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 0 15px rgba(255, 105, 180, 0.15);
+    }
+
+    /* Selected Card State */
+    .vibe-card.selected {
+      border: 2px solid #ff69b4;
+      background: linear-gradient(145deg, #2a1b26, #1f141d);
+      box-shadow: 0 0 20px rgba(255, 105, 180, 0.35), inset 0 0 10px rgba(255, 105, 180, 0.1);
+      transform: scale(1.02);
+    }
+
+    /* Selected Heart Badge */
+    .vibe-card.selected::after {
+      content: '💖';
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      font-size: 1.1rem;
+      animation: popIn 0.3s ease-out;
+    }
+
+    .vibe-tag {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      color: #ffb6c1;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+      opacity: 0.8;
+    }
+
+    .vibe-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      color: #ffffff;
+      margin-bottom: 12px;
+    }
+
+    .vibe-desc {
+      font-size: 0.9rem;
+      line-height: 1.55;
+      color: #d1c4cd;
+    }
+
+    /* Submit Section */
+    .action-container {
+      text-align: center;
+      margin-top: 40px;
+    }
+
+    .send-btn {
+      background: linear-gradient(135deg, #ff69b4, #db2777);
+      color: #ffffff;
+      border: none;
+      padding: 14px 36px;
       font-size: 1rem;
       font-weight: 600;
+      font-family: 'Quicksand', sans-serif;
       border-radius: 30px;
-      box-shadow: 0 8px 25px rgba(224, 50, 114, 0.45);
-    }
-
-    /* Pulsing Glow Animation for Action Buttons */
-    .pulse-glow {
-      animation: heartPulse 2.2s infinite ease-in-out;
-    }
-
-    @keyframes heartPulse {
-      0% {
-        transform: scale(1);
-        box-shadow: 0 8px 20px rgba(224, 50, 114, 0.4);
-      }
-      50% {
-        transform: scale(1.03);
-        box-shadow: 0 12px 30px rgba(255, 110, 165, 0.7);
-      }
-      100% {
-        transform: scale(1);
-        box-shadow: 0 8px 20px rgba(224, 50, 114, 0.4);
-      }
-    }
-
-    button.secondary {
-      background: rgba(255, 255, 255, 0.08);
-      color: #ffb3cb;
-      border: 1px solid rgba(255, 179, 203, 0.3);
-      padding: 12px 22px;
-      font-size: 0.95rem;
-      margin-top: 10px;
-      z-index: 999;
-      backdrop-filter: blur(8px);
-    }
-
-    button.secondary:hover {
-      background: rgba(255, 255, 255, 0.18);
-      border-color: rgba(255, 179, 203, 0.6);
-    }
-
-    .buttons {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 12px;
-      flex-wrap: wrap;
-      width: 100%;
-      margin-top: 22px;
-      position: relative;
-      min-height: 60px;
-    }
-
-    /* =====================================================
-       3. CARDS & GLASSMORPHISM
-    ===================================================== */
-    .birthday-entrance {
-      position: relative;
-      overflow: hidden;
-      text-align: center;
-      width: 100%;
-      padding: 45px 20px;
-      border-radius: 28px;
-      background: linear-gradient(
-        145deg,
-        rgba(76, 29, 50, 0.88),
-        rgba(38, 17, 28, 0.94)
-      );
-      border: 1px solid rgba(255, 190, 215, 0.25);
-      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45), 0 0 40px rgba(255, 110, 165, 0.15);
-      animation: entranceIn 0.9s ease both;
-    }
-
-    .birthday-flowers {
-      font-size: clamp(34px, 9vw, 58px);
-      letter-spacing: 5px;
-      margin-bottom: 18px;
-      animation: flowerAppear 0.8s ease both;
-    }
-
-    .birthday-title {
-      font-size: clamp(32px, 8vw, 54px);
-      font-weight: 800;
-      letter-spacing: 3px;
-      color: #ffd8e5;
-      text-shadow: 0 0 25px rgba(255, 110, 165, 0.45);
-      animation: titleAppear 1s ease 0.15s both;
-    }
-
-    .birthday-name {
-      margin-top: 5px;
-      font-size: clamp(32px, 7vw, 48px);
-      color: #ff9fbd;
-      animation: titleAppear 1s ease 0.3s both;
-    }
-
-    .birthday-message {
-      margin: 25px auto;
-      max-width: 480px;
-      line-height: 1.8;
-      color: #efd4de;
-      font-size: 1.05rem;
-      animation: titleAppear 1s ease 0.45s both;
-    }
-
-    .open-birthday {
-      opacity: 0;
-      animation: titleAppear 0.8s ease 0.8s forwards;
-      position: relative;
-      z-index: 999;
-    }
-
-    .card, .invite {
-      background: rgba(45, 18, 32, 0.75);
-      border: 1px solid rgba(255, 180, 205, 0.25);
-      border-radius: 24px;
-      padding: 30px 20px;
-      width: 100%;
-      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      position: relative;
-    }
-
-    /* Interactive Memory Cards Grid */
-    .memory-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 15px;
-      width: 100%;
-      margin: 20px 0;
-    }
-
-    .memory-card {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 180, 205, 0.2);
-      border-radius: 18px;
-      padding: 20px 15px;
       cursor: pointer;
-      min-height: 160px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.4s ease;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .memory-card:hover {
-      transform: translateY(-5px) scale(1.02);
-      border-color: rgba(255, 110, 165, 0.5);
-      box-shadow: 0 10px 25px rgba(255, 110, 165, 0.2);
-    }
-
-    .memory-card .card-front {
-      font-size: 1.1rem;
-      font-weight: 600;
-      color: #ffb3cb;
-    }
-
-    .memory-card .card-back {
-      display: none;
-      font-size: 0.95rem;
-      line-height: 1.6;
-      color: #f7e6ed;
-    }
-
-    .memory-card.flipped {
-      background: rgba(255, 110, 165, 0.15);
-      border-color: #ff6ea5;
-    }
-
-    .memory-card.flipped .card-front { display: none; }
-    .memory-card.flipped .card-back { display: block; }
-
-    .terminal-box {
-      background: #0d040a;
-      border: 1px solid #4a1d33;
-      border-radius: 14px;
-      padding: 20px;
-      font-family: Consolas, Monaco, "Courier New", Courier, monospace;
-      text-align: left;
-      color: #ff8cb3;
-      width: 100%;
-      margin: 20px 0;
-      min-height: 150px;
-      word-break: break-word;
-      box-shadow: inset 0 2px 10px rgba(0,0,0,0.5);
-    }
-
-    .progress {
-      margin-top: 20px;
-      height: 8px;
-      border-radius: 20px;
-      overflow: hidden;
-      background: #46303b;
-    }
-
-    .bar {
-      width: 0%;
-      height: 100%;
-      background: linear-gradient(90deg, #e76596, #ffb0c9);
-      box-shadow: 0 0 12px rgba(255, 130, 175, .6);
-      transition: width .2s ease;
-    }
-
-    .percent {
-      margin-top: 10px;
-      text-align: right;
-      font-size: 12px;
-      color: #e9b9c9;
-    }
-
-    .heart {
-      font-size: 60px;
-      margin-bottom: 15px;
-      animation: float 2.5s ease-in-out infinite;
-    }
-
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-8px); }
-    }
-
-    h1 { font-size: clamp(28px, 7vw, 48px); }
-    h2 { font-size: clamp(24px, 6vw, 38px); margin: 8px 0; }
-    .accent { color: #ff9fbd; }
-    .subtitle { line-height: 1.7; color: #d9b8c5; max-width: 620px; margin: 10px auto; }
-
-    /* Restaurant Details Component */
-    .restaurant-card {
-      text-align: center;
-      margin-top: 15px;
-    }
-
-    .restaurant-img {
-      width: 100%;
-      max-height: 320px;
-      object-fit: cover;
-      border-radius: 18px;
-      margin-bottom: 15px;
-      border: 1px solid rgba(255, 180, 205, 0.25);
-      background-color: rgba(0, 0, 0, 0.2);
-    }
-
-    .badge {
-      display: inline-block;
-      background: rgba(255, 110, 165, 0.2);
-      color: #ff9fbd;
-      padding: 6px 16px;
-      border-radius: 15px;
-      font-size: 0.85rem;
-      margin-bottom: 12px;
-      border: 1px solid rgba(255, 110, 165, 0.3);
-    }
-
-    /* =====================================================
-       4. RESPONSIVE GRID SYSTEM & TYPOGRAPHY
-    ===================================================== */
-    .selector-header { text-align: center; margin-bottom: 25px; width: 100%; }
-
-    .birthday-note {
-      margin: 18px auto;
-      padding: 22px;
-      max-width: 680px;
-      border-radius: 20px;
-      background: linear-gradient(135deg, rgba(145, 43, 82, .38), rgba(177, 111, 49, .18));
-      border: 1px solid rgba(255, 185, 205, .20);
-      line-height: 1.8;
-      color: #f3d6df;
-      text-align: left;
-      min-height: 180px;
-    }
-
-    .destination-grid {
-      width: 100%;
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
-      gap: 14px;
-    }
-
-    .destination {
-      min-height: 135px;
-      text-align: left;
-      padding: 18px;
-      background: linear-gradient(145deg, rgba(70, 34, 49, .72), rgba(42, 22, 31, .80));
-      border: 1px solid rgba(255, 190, 215, .16);
-      border-radius: 20px;
-      color: #f6dfe7;
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
+      box-shadow: 0 4px 15px rgba(255, 105, 180, 0.4);
       transition: all 0.3s ease;
     }
 
-    .destination:hover {
-      border-color: rgba(255, 145, 180, .55);
-      box-shadow: 0 12px 30px rgba(190, 60, 110, .25);
-      transform: translateY(-3px);
+    .send-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(255, 105, 180, 0.6);
     }
 
-    .destination-letter { display: block; font-family: Consolas, monospace; color: #ff9dbb; font-size: 11px; margin-bottom: 6px; }
-    .destination-title { display: block; font-size: 17px; font-weight: bold; margin-bottom: 6px; color: #ffd8e5; }
-    .destination-description { display: block; color: #c9aab7; font-size: 12px; line-height: 1.45; }
-
-    .restaurant-name { font-size: clamp(26px, 7vw, 40px); color: #ff9cbb; font-weight: bold; margin: 8px 0 20px; }
-
-    .details { display: grid; gap: 12px; margin: 22px 0; }
-    .detail {
-      display: flex; flex-direction: column; gap: 5px; padding: 15px;
-      background: rgba(255, 255, 255, .045); border: 1px solid rgba(255, 190, 215, .12);
-      border-radius: 15px; text-align: left;
-    }
-    .detail span { color: #c694a7; font-size: 13px; }
-    .detail b { color: #f5dce5; }
-
-    .message { line-height: 1.8; margin: 20px 0; color: #efd6df; }
-
-    .note {
-      margin-top: 20px;
-      padding: 18px;
-      background: rgba(130, 78, 38, .15);
-      border: 1px solid rgba(255, 204, 130, .15);
-      border-radius: 16px;
-      line-height: 1.7;
-      color: #efd9d1;
-      text-align: left;
-      min-height: 130px;
-    }
-
-    .cursor::after {
-      content: '┃';
-      animation: blink 0.7s infinite;
-      color: #ff9fbd;
-      margin-left: 2px;
-    }
-
-    @keyframes blink {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0; }
-    }
-
-    .time-options { width: 100%; display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-top: 25px; }
-    .time-option {
-      padding: 22px 15px; border-radius: 20px;
-      background: linear-gradient(145deg, rgba(70, 34, 49, .72), rgba(42, 22, 31, .80));
-      border: 1px solid rgba(255, 190, 215, .14); color: #f6dfe7; text-align: center;
-      transition: all 0.3s ease;
-    }
-    .time-option:hover {
-      border-color: #ff6ea5;
-      box-shadow: 0 10px 25px rgba(255, 110, 165, 0.25);
-    }
-    .time-icon { display: block; font-size: 35px; margin-bottom: 10px; }
-    .time-title { display: block; font-size: 18px; font-weight: bold; margin-bottom: 6px; }
-    .time-description { display: block; color: #c9aab7; font-size: 13px; line-height: 1.5; }
-
-    .footer { width: 100%; margin-top: 25px; font-family: Consolas, monospace; font-size: 11px; color: #9e7787; text-align: center; }
-    .accepted { font-size: 23px; font-weight: bold; color: #ff9fbd; margin-top: 15px; }
-
-    /* Keyframe Animations */
-    @keyframes entranceIn {
-      from { opacity: 0; transform: translateY(20px) scale(0.97); }
-      to { opacity: 1; transform: translateY(0) scale(1); }
-    }
-    @keyframes flowerAppear {
-      from { opacity: 0; transform: scale(0.65); }
-      to { opacity: 1; transform: scale(1); }
-    }
-    @keyframes titleAppear {
-      from { opacity: 0; transform: translateY(12px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    /* =====================================================
-       5. FLOWER BLAST ANIMATION
-    ===================================================== */
-    #flowerBlast, #flowerBlast * {
-      position: fixed;
-      inset: 0;
-      pointer-events: none !important;
-      z-index: 9999;
-      overflow: hidden;
-    }
-
-    .flower {
-      position: absolute;
-      top: -70px;
-      opacity: 0;
-      animation: flowerBurst 1.25s ease-out forwards;
-      will-change: transform, opacity;
-      user-select: none;
-      pointer-events: none !important;
-    }
-
-    @keyframes flowerBurst {
-      0% { opacity: 0; transform: translate3d(0, -40px, 0) rotate(0deg) scale(.55); }
-      12% { opacity: 1; }
-      75% { opacity: .9; }
-      100% { opacity: 0; transform: translate3d(var(--x), 85vh, 0) rotate(var(--rotation)) scale(var(--scale)); }
-    }
-
-    @media (max-width: 550px) {
-      .destination-grid { grid-template-columns: 1fr; }
-      .time-options { grid-template-columns: 1fr; }
-      .screen { padding: 20px 10px; }
+    @keyframes popIn {
+      0% { transform: scale(0); opacity: 0; }
+      80% { transform: scale(1.2); }
+      100% { transform: scale(1); opacity: 1; }
     }
   </style>
-	</head>
-	<body>
-		<!-- FLOWER CONFETTI CONTAINER -->
-		<div id="flowerBlast"></div>
+</head>
+<body>
 
-		<!-- =====================================================
-       1. BIRTHDAY ENTRANCE SCREEN
-  ===================================================== -->
-		<section id="birthdayEntrance" class="screen center">
-			<div class="birthday-entrance">
-				<div class="birthday-flowers">🌸 🌷 🌼 🌹 🌸</div>
-				<div class="birthday-title font-serif">HAPPIEST BIRTHDAY</div>
-				<div class="birthday-name font-script">My Aly 💗</div>
-				<div class="birthday-message">
-        For preparation of your special day. <br><br>
-        So before anything else... <br>
-        I just wanted to make you feel a little extra loved. 🥰
-      </div>
-				<div class="open-birthday">
-					<button class="primary pulse-glow" onclick="openBirthday()">
-          OPEN YOUR SURPRISE 💌
-        </button>
-				</div>
-			</div>
-		</section>
+  <div class="container">
+    <div class="header">
+      <h1>Pick a vibe for our special day 💗</h1>
+      <p>Whatever you choose, as long as I'm with you, it's going to be amazing. 🥰</p>
+    </div>
 
-		<!-- =====================================================
-       2. LOADING / TERMINAL SCREEN
-  ===================================================== -->
-		<section id="loadingScreen" class="screen center hidden">
-			<div class="card">
-				<h2 class="font-serif">Initializing Surprise Protocol... 💫</h2>
-				<div class="terminal-box" id="terminalLog">
-        > Accessing memory logs... <br>
-				</div>
-				<div class="progress">
-					<div id="bar" class="bar"></div>
-				</div>
-				<div id="percent" class="percent">0%</div>
-			</div>
-		</section>
+    <div class="grid" id="vibeGrid">
+      <!-- Dynamic Cards Injected via JS -->
+    </div>
 
-		<!-- =====================================================
-       3. WELCOME SCREEN
-  ===================================================== -->
-		<section id="welcome" class="screen hidden center">
-			<div class="heart">💗</div>
-			<h1 class="font-serif">Hey, <span class="accent font-script" style="font-size: 1.2em;">My Aly</span>!</h1>
-			<p class="subtitle">
-        You have a very important birthday notification. <br><br>
-        And no... <br>
-        it's not a school work. 😌 <br><br>
-        Now that you're starting your 2nd year, I know how hard you will be studying and how much effort you will put into everything you do. <br>
-        So today, take a deep breath, leave the stress behind for a moment, and let me take care of you. <br><br>
-        You deserve all the love, rest, and celebration in the world today. 🥰
-      </p>
-			<div class="buttons">
-				<button class="primary pulse-glow" onclick="showMemoriesScreen()">
-          OPEN NOTIFICATION 💌
-        </button>
-			</div>
-		</section>
+    <div class="action-container">
+      <button class="send-btn" id="sendBtn" onclick="sendChoice()">Lock in my choice! ✨</button>
+    </div>
+  </div>
 
-		<!-- =====================================================
-       3.5 INTERACTIVE MEMORY CARDS SCREEN (NEW ROMANTIC UX)
-  ===================================================== -->
-		<section id="memoriesScreen" class="screen hidden center">
-			<div class="card">
-				<h2 class="font-serif">Before We Pick... 🌸</h2>
-				<p class="subtitle">Tap each card to unlock 3 reasons why today is all about celebrating you!</p>
-				
-				<div class="memory-grid">
-					<div class="memory-card" onclick="flipCard(this)">
-						<div class="card-front">Reason #1 💖</div>
-						<div class="card-back">You work so incredibly hard every day, and I am constantly in awe of your dedication. 🌟</div>
-					</div>
-					<div class="memory-card" onclick="flipCard(this)">
-						<div class="card-front">Reason #2 🌷</div>
-						<div class="card-back">Even on your busiest school days, seeing your smile brightens up my whole week. 🥰</div>
-					</div>
-					<div class="memory-card" onclick="flipCard(this)">
-						<div class="card-front">Reason #3 🥂</div>
-						<div class="card-back">You deserve to be spoiled with good food, rest, and love without worrying about a thing. ❤️</div>
-					</div>
-				</div>
+  <script>
+    // 1. Initialize EmailJS with your Public Key
+    (function() {
+      emailjs.init("YOUR_PUBLIC_KEY"); // 👈 Replace with your EmailJS Public Key
+    })();
 
-				<div class="buttons" style="margin-top: 15px;">
-					<button class="primary pulse-glow" onclick="showQuestion()">
-            CONTINUE TO SURPRISE ✨
-          </button>
-				</div>
-			</div>
-		</section>
-
-		<!-- =====================================================
-       4. QUESTION SCREEN
-  ===================================================== -->
-		<section id="question" class="screen hidden center">
-			<div class="card">
-				<div style="font-size:24px; font-weight:bold; margin-bottom:10px;" class="font-serif">
-          Are you ready for a little surprise?
-        </div>
-				<div class="subtitle">
-          I spent a little time coding this instead of just sending a boring message. 🤓❤️
-        </div>
-				<div class="buttons">
-					<button class="primary pulse-glow" onclick="showRuleScreen()">
-            YES, SHOW ME 💗
-          </button>
-					<button id="scared" class="secondary" onmouseenter="moveDodgingButton('scared', event)" ontouchstart="moveDodgingButton('scared', event)">
-            No Im not ready
-          </button>
-				</div>
-			</div>
-		</section>
-
-		<!-- =====================================================
-       4.5 RULE SCREEN
-  ===================================================== -->
-		<section id="ruleScreen" class="screen hidden center">
-			<div class="card">
-				<h2 class="font-serif">Choose your birthday experience 💗</h2>
-				<div id="dedicatedRulesNote" class="birthday-note cursor"></div>
-				<div class="buttons" style="margin-top: 25px;">
-					<button class="primary pulse-glow" onclick="showDestinationSelector()">
-            Understood 💖
-          </button>
-					<button id="notUnderstoodBtn" class="secondary" onmouseenter="moveDodgingButton('notUnderstoodBtn', event)" ontouchstart="moveDodgingButton('notUnderstoodBtn', event)">
-            Not
-          </button>
-				</div>
-			</div>
-		</section>
-
-		<!-- =====================================================
-       5. DESTINATION SELECTOR SCREEN
-  ===================================================== -->
-		<section id="destinationSelector" class="screen hidden">
-			<div class="selector-header">
-				<h2 class="font-serif">Pick a vibe for your special day 💗</h2>
-				<p class="subtitle" style="margin-top: 15px;">
-          The restaurant names are hidden for now. 😌 <br>
-          Choose based only on the kind of birthday experience you want.
-        </p>
-			</div>
-			<div id="destinationGrid" class="destination-grid"></div>
-			<div class="footer">
-        available_options: 9 • mode: mystery
-      </div>
-		</section>
-
-		<!-- =====================================================
-       6. MYSTERY DETAILS SCREEN
-  ===================================================== -->
-		<section id="mysteryDetails" class="screen hidden center">
-			<div class="invite">
-				<div style="font-size:48px; margin: 10px 0;">🔐</div>
-				<h2 class="font-serif">You found a birthday plan. 💗</h2>
-				<p class="subtitle">Here's what this plan feels like...</p>
-				<div class="details">
-					<div class="detail">
-						<span>📍 Location</span>
-						<b id="mysteryLocation"></b>
-					</div>
-				</div>
-				<div id="mysteryDescription" class="message"></div>
-				<div class="note" style="text-align: center;">
-          The restaurant is still a secret. 🤫 <br><br>
-          If you like this kind of birthday, reveal the destination. ❤️
-        </div>
-				<div class="buttons">
-					<button class="secondary" onclick="showDestinationSelector()">
-            ← GO BACK
-          </button>
-					<button class="primary pulse-glow" onclick="revealRestaurant()">
-            REVEAL ❤️
-          </button>
-				</div>
-			</div>
-		</section>
-
-		<!-- =====================================================
-       7. RESTAURANT DETAILS SCREEN
-  ===================================================== -->
-		<section id="restaurantDetails" class="screen center hidden">
-			<div class="card restaurant-card">
-				<span class="badge">Dinner & Date Spot 🥂</span>
-				<h2 class="font-serif">A Special Evening Out</h2>
-				<p style="margin: 10px 0 20px; color: #efd4de;">I picked out a place for us to celebrate!</p>
-				<img id="restaurantImg" src="" alt="Restaurant Atmosphere" class="restaurant-img">
-				<h3 id="restaurantName" class="restaurant-name font-serif">The Cozy Table</h3>
-				<div class="details">
-					<div class="detail">
-						<span>📍 Location</span>
-						<b id="restaurantLocation">Quezon City</b>
-					</div>
-				</div>
-				<p id="restaurantDescription" style="font-size: 0.95rem; color: #d4a8b9; margin-top: 10px; line-height: 1.6;"></p>
-				<div style="margin-top: 25px; display: flex; flex-direction: column; gap: 10px;">
-					<button class="primary pulse-glow" onclick="showTimeSelection()">RESERVE OUR SPOT 🍷</button>
-					<button class="secondary" onclick="showDestinationSelector()">← Choose Another Spot</button>
-				</div>
-			</div>
-		</section>
-
-		<!-- =====================================================
-       8. TIME SELECTION SCREEN
-  ===================================================== -->
-		<section id="timeSelection" class="screen hidden center">
-			<div class="invite">
-				<div style="font-size:48px; margin: 10px 0;">🕰️</div>
-				<h2 class="font-serif">Now you choose the time. 💗</h2>
-				<p class="subtitle">
-          August 28, 2026 <br><br>
-          Which feels better for your birthday?
-        </p>
-				<div class="time-options">
-					<button class="time-option" onclick="selectTime('12:00 PM')">
-						<span class="time-icon">☀️</span>
-						<span class="time-title">12:00 PM</span>
-						<span class="time-description">A little birthday lunch together.</span>
-					</button>
-					<button class="time-option" onclick="selectTime('6:00 PM')">
-						<span class="time-icon">🌙</span>
-						<span class="time-title">6:00 PM</span>
-						<span class="time-description">A birthday dinner together.</span>
-					</button>
-				</div>
-				<div class="note" style="text-align: center;">
-          Don't choose based on what's easiest for me. <br><br>
-          Think about what you actually want. <br><br>
-          <b>It's your birthday. 🥰</b> <br><br>
-          <span style="font-size: 0.85rem; color: #ffb3cb;">
-            ⏰ Please submit your pick by <b>August 25</b> so I can handle the reservation!
-          </span>
-        </div>
-			</div>
-		</section>
-
-		<!-- =====================================================
-       9. FINAL QUESTION SCREEN
-  ===================================================== -->
-		<section id="finalQuestion" class="screen hidden center">
-			<div class="card">
-				<div style="font-size:48px; margin-bottom: 10px;">💗</div>
-				<h2 class="font-serif">You chose... ❤️</h2>
-				<div id="finalRestaurantName" class="restaurant-name font-serif"></div>
-				<div class="details">
-					<div class="detail">
-						<span>📅 Date</span>
-						<b>August 28, 2026</b>
-					</div>
-					<div class="detail">
-						<span>⏰ Time</span>
-						<b id="finalTime"></b>
-					</div>
-				</div>
-				<div class="note cursor" id="typewriterNote"></div>
-				<p class="subtitle" style="margin-top: 15px;">
-          Are you sure you want to make this our birthday date? <br><br>
-          You can still go back if you want to change something. 🥰
-        </p>
-			</div>
-			<div class="buttons">
-				<button class="secondary" onclick="showTimeSelection()">
-          ← GO BACK
-        </button>
-				<button class="primary pulse-glow" onclick="accept()">
-          PROCEED ❤️
-        </button>
-			</div>
-		</section>
-
-		<!-- =====================================================
-       10. SUCCESS / CONFIRMATION SCREEN
-  ===================================================== -->
-		<section id="accepted" class="screen hidden center">
-			<div class="heart">🥰</div>
-			<h1 class="accent font-serif">Birthday Date Confirmed! ❤️</h1>
-			<p class="subtitle">Our birthday date is officially chosen. ❤️</p>
-			<div class="card terminal-box" style="margin: 20px 0; min-height: 250px;">
-				<div id="terminalConfirmation" style="line-height: 2;"></div>
-			</div>
-			
-			<!-- SCREENSHOT INSTRUCTION BOX -->
-			<div style="background: rgba(255, 110, 165, 0.15); border: 1px dashed #ff8cb3; padding: 18px; border-radius: 16px; margin: 15px 0; max-width: 480px; width: 100%;">
-				<p style="font-size: 1.05rem; font-weight: bold; color: #ffd8e5; margin-bottom: 6px;">
-          📸 Send Me a Screenshot!
-        </p>
-				<p style="font-size: 0.9rem; color: #efd4de; line-height: 1.5;">
-          Take a screenshot of this page and send it to me so I can book our spot! 🥰
-        </p>
-			</div>
-
-			<!-- EMAIL ACTION BUTTON -->
-			<button onclick="sendEmailChoice()" class="primary pulse-glow" style="margin-top: 10px;">
-        Send Me Your Pick ✉️
-      </button>
-
-			<p class="accepted font-script" style="margin-top: 20px; font-size: 2.2rem;">See you there, my love. ❤️</p>
-			<p class="subtitle">August 28, 2026 • Our Birthday Date</p>
-		</section>
-
-		<!-- =====================================================
-       JAVASCRIPT CONTROLLER
-  ===================================================== -->
-		<script>
-    const destinations = [
-      {
-        name: "Wildflour QC",
-        mysteryTitle: "Cozy & Relaxed 🌷",
-        mysteryDescription: "A vibrant, stylish bakery-bistro offering comfort food classics, gourmet pastries, specialty coffee, and decadent desserts.",
-        location: "Quezon City",
-        description: "Known for its inviting bistro setting, artisanal bread, and a wide-ranging menu spanning heart-warming rice bowls, wood-fired pizzas, rich pastas, and fresh bakery pastries. Perfect for taking your time and enjoying dessert together.",
-        img: "https://hearthandhomebuddies.com/wp-content/uploads/2024/01/Wildflour-6.jpg"
-      },
-      {
-        name: "Incanta",
-        mysteryTitle: "Unique & Romantic ✨",
-        mysteryDescription: "An enchanting speakeasy-style space with moody ambient lighting, artful interiors, and creative signature culinary dishes.",
-        location: "Diliman, Quezon City",
-        description: "A hidden gem that emphasizes an intimate, romantic atmosphere with warm glow lighting and plush seating. Its menu brings inventive flavors and specialty drinks designed to make a birthday date feel truly distinct and memorable.",
-        img: "http://architizer-prod.imgix.net/media/mediadata/uploads/1747359654963PBIN2345.JPG?w=1680&q=60&auto=format,compress&cs=strip"
-      },
-      {
-        name: "Lobby 385",
-        mysteryTitle: "Fancy & Elegant ✨",
-        mysteryDescription: "A sophisticated dining space with sleek modern interiors, upscale continental cuisine, and finely crafted cocktail pairings.",
-        location: "San Juan",
-        description: "Exudes luxury and elegance, making it ideal for a proper celebratory dinner. Offers high-end steaks, refined seafood plates, and an exquisite drink selection in a quiet, polished atmosphere.",
-        img: "https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?auto=format&fit=crop&w=1000&q=80"
-      },
-      {
-        name: "The Steak Market by Steak.PH",
-        mysteryTitle: "Steak Lover 🥩",
-        mysteryDescription: "A dedicated steakhouse experience centered around premium prime beef cuts, rich savory sauces, and classic steakhouse sides.",
-        location: "Kapitolyo, Pasig",
-        description: "Focuses on high-quality, melt-in-your-mouth steaks cooked precisely to your liking. Accompanied by creamy garlic mashed potatoes, truffle butter, and rich pan drippings for an indulgent birthday feast.",
-        img: "https://www.simpol.ph/wp-content/uploads/2026/02/PHOTO-1_Steak.ph_.jpg"
-      },
-      {
-        name: "Le Verre",
-        mysteryTitle: "Romantic Evening 🌹",
-        mysteryDescription: "An intimate, candlelit European-inspired dining nook featuring refined French-accented dishes and an extensive wine list.",
-        location: "Quezon City",
-        description: "Features a cozy, low-lit ambiance designed for lingering, romantic conversations over multi-course meals. Highlights exquisite French culinary techniques, artisanal cheeses, and rich sauces.",
-        img: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1000&q=80"
-      },
-      {
-        name: "XI by Cafe Guilt",
-        mysteryTitle: "Something Special 💗",
-        mysteryDescription: "A chic, aesthetically pleasing dining location that balances indulgent comfort food with healthy, wholesome options.",
-        location: "Quezon City",
-        description: "An elevated spin-off of Cafe Guilt with a stylish, photo-worthy interior. Offers a flexible menu ranging from rich creamy pastas and gourmet meats to light, refreshing nourish bowls.",
-        img: "https://scontent.fmnl4-7.fna.fbcdn.net/v/t39.30808-6/598360385_842026361922507_6066011679989196672_n.jpg?stp=dst-jpg_tt6&cstp=mx1152x2048&ctp=s1152x2048&_nc_cat=109&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=cc71e4&_nc_eui2=AeHTGbuS31yJWA9R8-Id7A1xeHX2srh1heB4dfayuHWF4Hy1AH5ttfyU_Hccf4DLNOA&_nc_ohc=DFHhmHcImpEQ7kNvwH1rpUT&_nc_oc=AdrIjp-t8cbrUPmcItEMEfiucnX1gguUJqjjanTE99KNpMz0GHUW0evsf8phTFklEzxvIf9kPOqqNXBTOgNWTtMs&_nc_zt=23&_nc_ht=scontent.fmnl4-7.fna&_nc_gid=poAUlZWwATwqX0-XFg_edw&_nc_ss=7b2a8&oh=00_AQFSSusu3WD9CN-VFl99WztSrXhv0Fu1rRYaaaVeKItOGw&oe=6A866ECB"
-      },
-      {
-        name: "La Spezia",
-        mysteryTitle: "Italian Birthday 🍝",
-        mysteryDescription: "An authentic, charming Italian trattoria serving freshly handcrafted pasta, traditional risotto, and classic Italian desserts.",
-        location: "Quezon City",
-        description: "Focuses on simple, high-quality ingredients cooked with traditional Italian passion. Set in an unpretentious, cozy space perfect for enjoying house-made tagliatelle, fine olive oils, and authentic tiramisu.",
-        img: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=1000&q=80"
-      },
-      {
-        name: "Delgado 112",
-        mysteryTitle: "Classy Evening 🌸",
-        mysteryDescription: "A beautifully restored heritage house offering refined Spanish-Filipino fusion dishes in a historic, classy atmosphere.",
-        location: "Quezon City",
-        description: "Combines old-world charm with modern culinary craft. The warm wooden accents, ambient lighting, and rich flavor pairings create a sophisticated backdrop for an unforgettable night out.",
-        img: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiBTxMKUj4SHg0UC6dVW8t73pm_A78omKvoGSET0kP7xfoPR1SB-nH9qIP70c3jISf1CmJZgGXOUSwIN6I8j8PiQAFrnSw7izbCiNVkO3qccs32k_OCnfs6sITEI5v-vQVKiBUSQ9pZGLw/w1200-h630-p-k-no-nu/ASC_3028.JPG"
-      },
-      {
-        name: "Black Bull Steakhouse & Bar",
-        mysteryTitle: "Modern Steakhouse 🥩✨",
-        mysteryDescription: "A sleek, contemporary steakhouse delivering premium grilled meats, gourmet sides, and handcrafted cocktails in a vibrant setting.",
-        location: "Ayala Malls Vertis North, Quezon City",
-        description: "Offers an elevated yet approachable steak dining experience right in Vertis North. Celebrated for its juicy, perfectly seear prime steaks, savory sides, and stylish modern dining space suited for a memorable date night.",
-        img: "https://servicefinder.com.ph/uploads/banners/b1770590676.webp"
-      }
+    // 2. Options Data
+    const vibeOptions = [
+      { id: "01", tag: "VIBE 01", title: "Cozy & Relaxed 🌷", desc: "A warm, stylish bakery-bistro with comfort food classics, specialty coffee, and decadent desserts just for us." },
+      { id: "02", tag: "VIBE 02", title: "Speakeasy Romance ✨", desc: "An enchanting, moody spot with ambient lighting, artful interiors, and amazing signature dishes." },
+      { id: "03", tag: "VIBE 03", title: "Fancy & Elegant ✨", desc: "A sophisticated dining space with modern interiors, upscale continental cuisine, and cocktail pairings." },
+      { id: "04", tag: "VIBE 04", title: "Steak & Wine 🥩", desc: "A dedicated steakhouse experience centered around prime beef cuts, rich savory sauces, and classic sides." },
+      { id: "05", tag: "VIBE 05", title: "Candlelit Evening 🌹", desc: "An intimate European-inspired dining nook featuring refined French-accented dishes and a great wine list." },
+      { id: "06", tag: "VIBE 06", title: "Chic & Aesthetic 💕", desc: "A beautiful, photogenic spot that perfectly balances indulgent comfort food with lighter options." },
+      { id: "07", tag: "VIBE 07", title: "Pasta & Date Night 🍝", desc: "A charming Italian trattoria serving freshly handcrafted pasta, traditional risotto, and classic desserts." },
+      { id: "08", tag: "VIBE 08", title: "Heritage & Charm 🌸", desc: "A restored historic home offering refined Spanish-Filipino fusion dishes in a classy, romantic atmosphere." },
+      { id: "09", tag: "VIBE 09", title: "Rooftop & City Lights 🍸✨", desc: "A sleek open-air spot with breathtaking evening views, premium grilled dishes, and handcrafted cocktails." }
     ];
 
-    const dodgingComments = [
-      "Read Again",
-      "Nice try! 😉",
-      "Seriously?!",
-      "Nope! 🙈",
-      "Ooops 😜",
-      "Over here! 💃",
-    ];
+    let selectedVibe = null;
 
-    let selectedDestination = null;
-    let selectedTime = null;
-    let activeTypingTimeout = null;
-    let fallingFlowersInterval = null;
+    // 3. Render Cards
+    const grid = document.getElementById("vibeGrid");
 
-    function showScreen(screenId) {
-      document.querySelectorAll('.screen').forEach(s => s.classList.add('hidden'));
-      const target = document.getElementById(screenId);
-      if (target) target.classList.remove('hidden');
-    }
+    vibeOptions.forEach(vibe => {
+      const card = document.createElement("div");
+      card.className = "vibe-card";
+      card.onclick = () => selectCard(card, vibe);
 
-    function openBirthday() {
-      if (fallingFlowersInterval) clearInterval(fallingFlowersInterval);
-      triggerFlowerBlast();
-      showScreen('loadingScreen');
-      startTerminalSequence();
-    }
+      card.innerHTML = `
+        <div class="vibe-tag">${vibe.tag}</div>
+        <div class="vibe-title">${vibe.title}</div>
+        <div class="vibe-desc">${vibe.desc}</div>
+      `;
 
-    function startTerminalSequence() {
-      const log = document.getElementById('terminalLog');
-      const bar = document.getElementById('bar');
-      const percent = document.getElementById('percent');
-
-      const messages = [
-        "> Accessing memory logs...",
-        "> Loading favorite memories...",
-        "> Measuring love levels: OVERFLOW ERROR! ❤️",
-        "> Reserving table for two...",
-        "> Finalizing birthday itinerary...",
-        "> Ready!"
-      ];
-
-      let i = 0;
-      log.innerHTML = '';
-
-      const interval = setInterval(() => {
-        if (i < messages.length) {
-          const progress = Math.min(Math.round(((i + 1) / messages.length) * 100), 100);
-          if (bar) bar.style.width = progress + '%';
-          if (percent) percent.textContent = progress + '%';
-
-          log.innerHTML += messages[i] + "<br>";
-          i++;
-        } else {
-          clearInterval(interval);
-          setTimeout(() => showScreen('welcome'), 800);
-        }
-      }, 600);
-    }
-
-    function startTerminalLineByLine(elementId, lines, delay = 300) {
-      const container = document.getElementById(elementId);
-      if (!container) return;
-      container.innerHTML = '';
-      container.classList.add('cursor');
-
-      let lineIndex = 0;
-      const interval = setInterval(() => {
-        if (lineIndex < lines.length) {
-          container.innerHTML += lines[lineIndex] + '<br>';
-          lineIndex++;
-        } else {
-          clearInterval(interval);
-          container.classList.remove('cursor');
-        }
-      }, delay);
-    }
-
-    function showMemoriesScreen() {
-      showScreen('memoriesScreen');
-    }
-
-    function flipCard(cardEl) {
-      cardEl.classList.toggle('flipped');
-    }
-
-    function showQuestion() {
-      showScreen('question');
-    }
-
-    function showRuleScreen() {
-      showScreen('ruleScreen');
-      const ruleText = "One important rule:\n\nDon't think about me.\nDon't think about what's easiest for me.\nDon't think about my work schedule.\n\nThink about what YOU want. ❤️\n\nIt's your birthday. You get to be a little selfish. 🥰\n\n(p.s. Let me know your pick by Aug 25 so I can lock in our reservation! 😉)";
-      startTypewriter('dedicatedRulesNote', ruleText, 30);
-    }
-
-    /* SAFE CROSS-BROWSER DODGING BUTTON */
-    function moveDodgingButton(buttonId, event) {
-      if (event && event.type === 'touchstart') {
-        event.preventDefault();
-      }
-
-      const btn = document.getElementById(buttonId);
-      if (!btn) return;
-
-      const parent = btn.parentElement;
-      const parentRect = parent.getBoundingClientRect();
-      const btnRect = btn.getBoundingClientRect();
-
-      const maxX = (parentRect.width - btnRect.width) / 2;
-      const maxY = 40;
-
-      const randomX = (Math.random() * 2 - 1) * maxX;
-      const randomY = (Math.random() * 2 - 1) * maxY;
-
-      btn.style.transform = `translate(${randomX}px, ${randomY}px)`;
-      btn.textContent = dodgingComments[Math.floor(Math.random() * dodgingComments.length)];
-    }
-
-    function startTypewriter(elementId, fullText, speed = 35) {
-      const container = document.getElementById(elementId);
-      if (!container) return;
-
-      if (activeTypingTimeout) clearTimeout(activeTypingTimeout);
-
-      container.innerHTML = '';
-      container.classList.add('cursor');
-      let index = 0;
-
-      function typeChar() {
-        if (index < fullText.length) {
-          const char = fullText.charAt(index);
-          container.innerHTML += (char === '\n') ? '<br>' : char;
-          index++;
-          activeTypingTimeout = setTimeout(typeChar, speed);
-        } else {
-          container.classList.remove('cursor');
-        }
-      }
-
-      typeChar();
-    }
-
-    function showDestinationSelector() {
-      renderDestinations();
-      showScreen('destinationSelector');
-    }
-
-    function renderDestinations() {
-      const grid = document.getElementById('destinationGrid');
-      grid.innerHTML = '';
-
-      destinations.forEach((dest, index) => {
-        const btn = document.createElement('button');
-        btn.className = 'destination';
-        btn.onclick = () => selectDestination(index);
-
-        btn.innerHTML = `
-          <span class="destination-letter">OPTION 0${index + 1}</span>
-          <span class="destination-title font-serif">${dest.mysteryTitle}</span>
-          <span class="destination-description">${dest.mysteryDescription}</span>
-        `;
-        grid.appendChild(btn);
-      });
-    }
-
-    function selectDestination(index) {
-      selectedDestination = destinations[index];
-      document.getElementById('mysteryLocation').textContent = selectedDestination.location;
-      document.getElementById('mysteryDescription').textContent = selectedDestination.mysteryDescription;
-      showScreen('mysteryDetails');
-    }
-
-    function revealRestaurant() {
-      if (!selectedDestination) return;
-      document.getElementById('restaurantName').textContent = selectedDestination.name;
-      document.getElementById('restaurantLocation').textContent = selectedDestination.location;
-      document.getElementById('restaurantDescription').textContent = selectedDestination.description;
-      
-      const imgElement = document.getElementById('restaurantImg');
-      if (imgElement && selectedDestination.img) {
-        imgElement.src = selectedDestination.img;
-      }
-
-      showScreen('restaurantDetails');
-    }
-
-    function showTimeSelection() {
-      showScreen('timeSelection');
-    }
-
-    function selectTime(timeStr) {
-      selectedTime = timeStr;
-      document.getElementById('finalRestaurantName').textContent = selectedDestination ? selectedDestination.name : "Selected Spot";
-      document.getElementById('finalTime').textContent = selectedTime;
-      showScreen('finalQuestion');
-
-      const textToType = "Even though we're both busy, I wanted to make your birthday feel a little more special. ❤️\n\nIt's your birthday, and I want to celebrate it with you. Just a little lunch or dinner, some good food, and some time together.\n\nI know you'll be busy, but yeah... a little birthday date is not too much to ask for. 🥰";
-
-      startTypewriter('typewriterNote', textToType, 35);
-    }
-
-    function accept() {
-      showScreen('accepted');
-      triggerFlowerBlast();
-
-      const restName = selectedDestination ? selectedDestination.name : "Selected Spot";
-      const restTime = selectedTime || "12:00 PM";
-
-      const terminalLines = [
-        `✓ Birthday_Date_Locked = "August 28, 2026"`,
-        `✓ Destination_Locked = "${restName}"`,
-        `✓ Time_Locked = "${restTime}"`,
-        `✓ Restaurant_Reservation = pending`,
-        `✓ Quality_Time = enabled`,
-        `✓ Happiness = 100%`
-      ];
-
-      startTerminalLineByLine('terminalConfirmation', terminalLines, 300);
-    }
-
-    function sendEmailChoice() {
-      const restName = selectedDestination ? selectedDestination.name : "Selected Spot";
-      const restTime = selectedTime || "12:00 PM";
-
-      const subject = encodeURIComponent("My Birthday Date Choice! 💖");
-      const body = encodeURIComponent(`Hey! Here is what I chose for my birthday date:\n\n📍 Place: ${restName}\n⏰ Time: ${restTime}\n📅 Date: August 28, 2026\n\nCan't wait! 🥰`);
-
-      // Replace with your actual email address:
-      window.location.href = `mailto:alecxisneilsoliman@gmail.com?subject=${subject}&body=${body}`;
-    }
-
-    function triggerFlowerBlast() {
-      const container = document.getElementById('flowerBlast');
-      container.innerHTML = '';
-      const flowers = ['🌸', '🌷', '🌼', '🌹', '🌺', '💗', '✨'];
-
-      for (let i = 0; i < 30; i++) {
-        const flower = document.createElement('div');
-        flower.className = 'flower';
-        flower.textContent = flowers[Math.floor(Math.random() * flowers.length)];
-
-        const startX = Math.random() * window.innerWidth;
-        const driftX = (Math.random() - 0.5) * 300;
-        const rotation = Math.random() * 720;
-        const scale = 0.6 + Math.random() * 0.8;
-
-        flower.style.left = `${startX}px`;
-        flower.style.setProperty('--x', `${driftX}px`);
-        flower.style.setProperty('--rotation', `${rotation}deg`);
-        flower.style.setProperty('--scale', scale);
-        flower.style.animationDelay = `${Math.random() * 0.4}s`;
-
-        container.appendChild(flower);
-      }
-    }
-
-    function startFallingFlowers() {
-      const container = document.getElementById('flowerBlast');
-      if (!container) return;
-
-      const flowerEmojis = ['🌸', '🌷', '🌼', '🌹', '🌺', '✨'];
-
-      fallingFlowersInterval = setInterval(() => {
-        const entrance = document.getElementById('birthdayEntrance');
-        if (entrance && entrance.classList.contains('hidden')) {
-          clearInterval(fallingFlowersInterval);
-          return;
-        }
-
-        const flower = document.createElement('div');
-        flower.className = 'flower';
-        flower.textContent = flowerEmojis[Math.floor(Math.random() * flowerEmojis.length)];
-
-        const left = Math.random() * 100;
-        const xOffset = (Math.random() - 0.5) * 200;
-        const rotation = Math.random() * 720;
-        const scale = 0.6 + Math.random() * 0.8;
-        const duration = 2.5 + Math.random() * 2.5;
-
-        flower.style.left = `${left}vw`;
-        flower.style.fontSize = `${18 + Math.random() * 16}px`;
-        flower.style.setProperty('--x', `${xOffset}px`);
-        flower.style.setProperty('--rotation', `${rotation}deg`);
-        flower.style.setProperty('--scale', scale);
-        flower.style.animationDuration = `${duration}s`;
-
-        container.appendChild(flower);
-
-        setTimeout(() => {
-          flower.remove();
-        }, duration * 1000);
-      }, 250);
-    }
-
-    /* GLOBAL TAP/CLICK FLOATING HEARTS EFFECT */
-    document.addEventListener('click', function (e) {
-      const heartIcons = ['💖', '✨', '💕', '🌸', '💗'];
-      const heart = document.createElement('div');
-      heart.innerHTML = heartIcons[Math.floor(Math.random() * heartIcons.length)];
-      heart.style.position = 'fixed';
-      heart.style.left = (e.clientX - 10) + 'px';
-      heart.style.top = (e.clientY - 10) + 'px';
-      heart.style.fontSize = '22px';
-      heart.style.pointerEvents = 'none';
-      heart.style.zIndex = '99999';
-      heart.style.transition = 'all 1.1s cubic-bezier(0.25, 0.8, 0.25, 1)';
-      
-      document.body.appendChild(heart);
-
-      setTimeout(() => {
-        heart.style.transform = `translate(${(Math.random() - 0.5) * 40}px, -70px) scale(1.4)`;
-        heart.style.opacity = '0';
-      }, 50);
-
-      setTimeout(() => heart.remove(), 1150);
+      grid.appendChild(card);
     });
 
-    window.addEventListener('DOMContentLoaded', startFallingFlowers);
+    // 4. Handle Selection
+    function selectCard(cardElement, vibeData) {
+      document.querySelectorAll(".vibe-card").forEach(c => c.classList.remove("selected"));
+      cardElement.classList.add("selected");
+      selectedVibe = vibeData;
+    }
+
+    // 5. Direct Background Sending via EmailJS
+    function sendChoice() {
+      if (!selectedVibe) {
+        alert("Please tap one of the vibes first! 💖");
+        return;
+      }
+
+      const btn = document.getElementById("sendBtn");
+      btn.innerText = "Sending... 💖";
+      btn.disabled = true;
+
+      const templateParams = {
+        vibe_title: selectedVibe.title,
+        vibe_tag: selectedVibe.tag,
+        vibe_desc: selectedVibe.desc,
+        date: "August 28, 2026"
+      };
+
+      emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", templateParams)
+        .then(function() {
+          alert("🎉 Choice sent successfully! Can't wait for our date! 🥰");
+          btn.innerText = "Sent! ✨";
+        }, function(error) {
+          console.error("EmailJS Error:", error);
+          alert("Oops! Something went wrong behind the scenes. Please try clicking again!");
+          btn.innerText = "Lock in my choice! ✨";
+          btn.disabled = false;
+        });
+    }
   </script>
-	</body>
+</body>
 </html>
