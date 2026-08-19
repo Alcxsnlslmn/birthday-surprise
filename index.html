@@ -904,9 +904,6 @@
       <button type="button" onclick="sendEmailChoice()" class="primary pulse-glow" style="width: 100%;">
         Send Me Your Pick ✉️
       </button>
-      <button type="button" onclick="requestRainCheck()" class="secondary" style="width: 100%; border-color: rgba(100, 200, 255, 0.4); color: #a2d2ff;">
-        ☔ Request Rainy Weather Postpone / Rain Check
-      </button>
     </div>
     <p class="accepted font-script" style="margin-top: 20px; font-size: 2.2rem;">See you there, my Aly. ❤️</p>
     <p class="subtitle">August 28, 2026 • Our Birthday Date</p>
@@ -1222,14 +1219,14 @@
       showScreen('accepted');
       triggerFlowerBlast();
 
-      const restName = selectedDestination ? selectedDestination.name : "Selected Spot";
-      const restTime = selectedTime || "12:00 PM";
+      const restName = selectedDestination ? selectedDestination.name : "Cozy Stay-In Date (Plan B) 🌧️🧸";
+      const restTime = selectedTime || "Flexible / Cozy Evening";
 
       const terminalLines = [
         `✓ Birthday_Date_Locked = "August 28, 2026"`,
         `✓ Destination_Locked = "${restName}"`,
         `✓ Time_Locked = "${restTime}"`,
-        `✓ Restaurant_Reservation = pending`,
+        `✓ Reservation_Status = confirmed`,
         `✓ Quality_Time = enabled`,
         `✓ Happiness = 100%`
       ];
@@ -1238,8 +1235,8 @@
     }
 
     function sendEmailChoice() {
-      const restName = selectedDestination ? selectedDestination.name : "Selected Spot";
-      const restTime = selectedTime || "12:00 PM";
+      const restName = selectedDestination ? selectedDestination.name : "Cozy Stay-In Date (Plan B) 🌧️🧸";
+      const restTime = selectedTime || "Flexible / Cozy Evening";
 
       const subject = encodeURIComponent("My Birthday Date Choice! 💖");
       const body = encodeURIComponent(`Hey! Here is what I chose for my birthday date:\n\n📍 Place: ${restName}\n⏰ Time: ${restTime}\n📅 Date: August 28, 2026\n\nCan't wait! 🥰`);
@@ -1247,18 +1244,14 @@
       window.location.href = `mailto:your-email@gmail.com?subject=${subject}&body=${body}`;
     }
 
+    /* OPTION B IMPLEMENTATION: ROUTE DIRECTLY TO FINAL ACCEPTED SCREEN */
     function requestRainCheck() {
       triggerFlowerBlast();
 
-      const subject = encodeURIComponent("Rainy Weather Birthday Plan 🌧️💖");
-      const body = encodeURIComponent("Hey! Since the typhoon/rain weather looks crazy, let's do our Plan B cozy stay-in date for my birthday (or reschedule to next week when it clears up)! 🥰");
-      
-      const mailtoUrl = `mailto:your-email@gmail.com?subject=${subject}&body=${body}`;
-      window.open(mailtoUrl, '_self');
+      selectedDestination = { name: "Cozy Stay-In Date (Plan B) 🌧️🧸" };
+      selectedTime = "Flexible / Cozy Evening";
 
-      setTimeout(() => {
-        alert("Stay-in birthday choice requested! 🌧️💖 Take a screenshot of this screen and send it to me!");
-      }, 500);
+      accept();
     }
 
     function triggerFlowerBlast() {
