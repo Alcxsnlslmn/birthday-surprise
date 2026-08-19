@@ -351,6 +351,12 @@
       border: 1px solid rgba(255, 110, 165, 0.3);
     }
 
+    .rain-badge {
+      background: rgba(100, 200, 255, 0.2);
+      color: #a2d2ff;
+      border-color: rgba(100, 200, 255, 0.3);
+    }
+
     /* =====================================================
        4. RESPONSIVE GRID SYSTEM & TYPOGRAPHY
     ===================================================== */
@@ -392,14 +398,12 @@
       cursor: pointer;
     }
 
-    /* Hover Lift & Glow Effect */
     .destination:hover {
       transform: translateY(-4px);
       border-color: rgba(255, 105, 180, 0.4);
       box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 0 15px rgba(255, 105, 180, 0.15);
     }
 
-    /* Selected State Styling */
     .destination.selected {
       border: 2px solid #ff69b4;
       background: linear-gradient(145deg, #2a1b26, #1f141d);
@@ -753,6 +757,7 @@
   <section id="restaurantDetails" class="screen center hidden">
     <div class="card restaurant-card">
       <span class="badge">Dinner & Date Spot 🥂</span>
+      <span id="indoorBadge" class="badge rain-badge hidden">☔ Covered Indoor Access</span>
       <h2 class="font-serif">A Special Evening Out</h2>
       <p style="margin: 10px 0 20px; color: #efd4de;">I picked out a place for us to celebrate!</p>
       <img id="restaurantImg" src="" alt="Restaurant Atmosphere" class="restaurant-img">
@@ -794,6 +799,14 @@
           <span class="time-description">A birthday dinner together.</span>
         </button>
       </div>
+      
+      <!-- RAINY WEATHER BACKUP BUTTON -->
+      <div style="margin-top: 20px;">
+        <button class="secondary" onclick="showRainyBackup()" style="width: 100%; border-color: rgba(100, 200, 255, 0.4); color: #a2d2ff;">
+          🌧️ Typhoons / Heavy Rain Contingency Plan
+        </button>
+      </div>
+
       <div class="note" style="text-align: center;">
         Don't choose based on what's easiest for me.<br><br>
         Think about what you actually want.<br><br>
@@ -801,6 +814,34 @@
         <span style="font-size: 0.85rem; color: #ffb3cb;">
           ⏰ Please submit your pick by <b>August 25</b> so I can handle the reservation!
         </span>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       8.5 RAINY WEATHER STAY-IN BACKUP SCREEN
+  ===================================================== -->
+  <section id="rainyBackup" class="screen hidden center">
+    <div class="card">
+      <div style="font-size:48px; margin-bottom: 10px;">🌧️🧸</div>
+      <h2 class="font-serif">Plan B: Cozy Rainy Day Date ❤️</h2>
+      <p class="subtitle">
+        If typhoons, flooded roads, or heavy rain get in the way of going out... we don't need to stress at all. 🥰
+      </p>
+      <div class="note" style="text-align: left; background: rgba(20, 40, 60, 0.4); border-color: rgba(100, 200, 255, 0.3);">
+        <b>Here is our stay-in birthday prescription:</b><br><br>
+        🍿 <b>Living Room Blanket Fort & Movie Night</b><br>
+        🍲 <b>Warm Comfort Food Takeout or Home Cooking</b><br>
+        ☕ <b>Hot Cocoa, Tea & Spa Pampering</b><br><br>
+        Zero rush, zero stress, and complete rest for your birthday! 💖
+      </div>
+      <div class="buttons">
+        <button class="secondary" onclick="showTimeSelection()">
+          ← BACK TO RESTAURANTS
+        </button>
+        <button class="primary pulse-glow" onclick="requestRainCheck()">
+          SELECT STAY-IN DATE 🌧️
+        </button>
       </div>
     </div>
   </section>
@@ -858,10 +899,15 @@
         Take a screenshot of this page and send it to me so I can book our spot! 🥰
       </p>
     </div>
-    <!-- EMAIL ACTION BUTTON -->
-    <button onclick="sendEmailChoice()" class="primary pulse-glow" style="margin-top: 10px;">
-      Send Me Your Pick ✉️
-    </button>
+    <!-- EMAIL ACTION BUTTONS -->
+    <div class="buttons" style="flex-direction: column; width: 100%;">
+      <button onclick="sendEmailChoice()" class="primary pulse-glow" style="width: 100%;">
+        Send Me Your Pick ✉️
+      </button>
+      <button onclick="requestRainCheck()" class="secondary" style="width: 100%; border-color: rgba(100, 200, 255, 0.4); color: #a2d2ff;">
+        ☔ Request Rainy Weather Postpone / Rain Check
+      </button>
+    </div>
     <p class="accepted font-script" style="margin-top: 20px; font-size: 2.2rem;">See you there, my Aly. ❤️</p>
     <p class="subtitle">August 28, 2026 • Our Birthday Date</p>
   </section>
@@ -877,7 +923,8 @@
         mysteryDescription: "A warm, stylish bakery-bistro with comfort food classics, specialty coffee, and decadent desserts just for us.",
         location: "Quezon City",
         description: "Known for its inviting bistro setting, artisanal bread, and a wide-ranging menu spanning heart-warming rice bowls, wood-fired pizzas, rich pastas, and fresh bakery pastries. Perfect for taking your time and enjoying dessert together.",
-        img: "https://hearthandhomebuddies.com/wp-content/uploads/2024/01/Wildflour-6.jpg"
+        img: "https://hearthandhomebuddies.com/wp-content/uploads/2024/01/Wildflour-6.jpg",
+        isIndoor: false
       },
       {
         name: "Incanta",
@@ -885,7 +932,8 @@
         mysteryDescription: "An enchanting, moody spot with ambient lighting, artful interiors, and amazing signature dishes.",
         location: "Diliman, Quezon City",
         description: "A hidden gem that emphasizes an intimate, romantic atmosphere with warm glow lighting and plush seating. Its menu brings inventive flavors and specialty drinks designed to make a birthday date feel truly distinct and memorable.",
-        img: "http://architizer-prod.imgix.net/media/mediadata/uploads/1747359654963PBIN2345.JPG?w=1680&q=60&auto=format,compress&cs=strip"
+        img: "http://architizer-prod.imgix.net/media/mediadata/uploads/1747359654963PBIN2345.JPG?w=1680&q=60&auto=format,compress&cs=strip",
+        isIndoor: false
       },
       {
         name: "Lobby 385",
@@ -893,7 +941,8 @@
         mysteryDescription: "A sophisticated dining space with modern interiors, upscale continental cuisine, and cocktail pairings.",
         location: "San Juan",
         description: "Exudes luxury and elegance, making it ideal for a proper celebratory dinner. Offers high-end steaks, refined seafood plates, and an exquisite drink selection in a quiet, polished atmosphere.",
-        img: "https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?auto=format&fit=crop&w=1000&q=80"
+        img: "https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?auto=format&fit=crop&w=1000&q=80",
+        isIndoor: true
       },
       {
         name: "The Steak Market by Steak.PH",
@@ -901,7 +950,8 @@
         mysteryDescription: "A dedicated steakhouse experience centered around prime beef cuts, rich savory sauces, and classic sides.",
         location: "Kapitolyo, Pasig",
         description: "Focuses on high-quality, melt-in-your-mouth steaks cooked precisely to your liking. Accompanied by creamy garlic mashed potatoes, truffle butter, and rich pan drippings for an indulgent birthday feast.",
-        img: "https://www.simpol.ph/wp-content/uploads/2026/02/PHOTO-1_Steak.ph_.jpg"
+        img: "https://www.simpol.ph/wp-content/uploads/2026/02/PHOTO-1_Steak.ph_.jpg",
+        isIndoor: false
       },
       {
         name: "Le Verre",
@@ -909,7 +959,8 @@
         mysteryDescription: "An intimate European-inspired dining nook featuring refined French-accented dishes and a great wine list.",
         location: "Quezon City",
         description: "Features a cozy, low-lit ambiance designed for lingering, romantic conversations over multi-course meals. Highlights exquisite French culinary techniques, artisanal cheeses, and rich sauces.",
-        img: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1000&q=80"
+        img: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1000&q=80",
+        isIndoor: false
       },
       {
         name: "XI by Cafe Guilt",
@@ -917,7 +968,8 @@
         mysteryDescription: "A beautiful, photogenic spot that perfectly balances indulgent comfort food with lighter options.",
         location: "Quezon City",
         description: "An elevated spin-off of Cafe Guilt with a stylish, photo-worthy interior. Offers a flexible menu ranging from rich creamy pastas and gourmet meats to light, refreshing nourish bowls.",
-        img: "https://scontent.fmnl4-7.fna.fbcdn.net/v/t39.30808-6/598360385_842026361922507_6066011679989196672_n.jpg?stp=dst-jpg_tt6&cstp=mx1152x2048&ctp=s1152x2048&_nc_cat=109&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=cc71e4&_nc_eui2=AeHTGbuS31yJWA9R8-Id7A1xeHX2srh1heB4dfayuHWF4Hy1AH5ttfyU_Hccf4DLNOA&_nc_ohc=DFHhmHcImpEQ7kNvwH1rpUT&_nc_oc=AdrIjp-t8cbrUPmcItEMEfiucnX1gguUJqjjanTE99KNpMz0GHUW0evsf8phTFklEzxvIf9kPOqqNXBTOgNWTtMs&_nc_zt=23&_nc_ht=scontent.fmnl4-7.fna&_nc_gid=poAUlZWwATwqX0-XFg_edw&_nc_ss=7b2a8&oh=00_AQFSSusu3WD9CN-VFl99WztSrXhv0Fu1rRYaaaVeKItOGw&oe=6A866ECB"
+        img: "https://scontent.fmnl4-7.fna.fbcdn.net/v/t39.30808-6/598360385_842026361922507_6066011679989196672_n.jpg?stp=dst-jpg_tt6&cstp=mx1152x2048&ctp=s1152x2048&_nc_cat=109&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=cc71e4&_nc_eui2=AeHTGbuS31yJWA9R8-Id7A1xeHX2srh1heB4dfayuHWF4Hy1AH5ttfyU_Hccf4DLNOA&_nc_ohc=DFHhmHcImpEQ7kNvwH1rpUT&_nc_oc=AdrIjp-t8cbrUPmcItEMEfiucnX1gguUJqjjanTE99KNpMz0GHUW0evsf8phTFklEzxvIf9kPOqqNXBTOgNWTtMs&_nc_zt=23&_nc_ht=scontent.fmnl4-7.fna&_nc_gid=poAUlZWwATwqX0-XFg_edw&_nc_ss=7b2a8&oh=00_AQFSSusu3WD9CN-VFl99WztSrXhv0Fu1rRYaaaVeKItOGw&oe=6A866ECB",
+        isIndoor: false
       },
       {
         name: "La Spezia",
@@ -925,7 +977,8 @@
         mysteryDescription: "A charming Italian trattoria serving freshly handcrafted pasta, traditional risotto, and classic desserts.",
         location: "Quezon City",
         description: "Focuses on simple, high-quality ingredients cooked with traditional Italian passion. Set in an unpretentious, cozy space perfect for enjoying house-made tagliatelle, fine olive oils, and authentic tiramisu.",
-        img: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=1000&q=80"
+        img: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=1000&q=80",
+        isIndoor: false
       },
       {
         name: "Delgado 112",
@@ -933,7 +986,8 @@
         mysteryDescription: "A restored historic home offering refined Spanish-Filipino fusion dishes in a classy, romantic atmosphere.",
         location: "Quezon City",
         description: "Combines old-world charm with modern culinary craft. The warm wooden accents, ambient lighting, and rich flavor pairings create a sophisticated backdrop for an unforgettable night out.",
-        img: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiBTxMKUj4SHg0UC6dVW8t73pm_A78omKvoGSET0kP7xfoPR1SB-nH9qIP70c3jISf1CmJZgGXOUSwIN6I8j8PiQAFrnSw7izbCiNVkO3qccs32k_OCnfs6sITEI5v-vQVKiBUSQ9pZGLw/w1200-h630-p-k-no-nu/ASC_3028.JPG"
+        img: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiBTxMKUj4SHg0UC6dVW8t73pm_A78omKvoGSET0kP7xfoPR1SB-nH9qIP70c3jISf1CmJZgGXOUSwIN6I8j8PiQAFrnSw7izbCiNVkO3qccs32k_OCnfs6sITEI5v-vQVKiBUSQ9pZGLw/w1200-h630-p-k-no-nu/ASC_3028.JPG",
+        isIndoor: false
       },
       {
         name: "Black Bull Steakhouse & Bar",
@@ -941,7 +995,8 @@
         mysteryDescription: "A sleek open-air spot with breathtaking evening views, premium grilled dishes, and handcrafted cocktails.",
         location: "Ayala Malls Vertis North, Quezon City",
         description: "Offers an elevated yet approachable steak dining experience right in Vertis North. Celebrated for its juicy, perfectly seared prime steaks, savory sides, and stylish modern dining space suited for a memorable date night.",
-        img: "https://servicefinder.com.ph/uploads/banners/b1770590676.webp"
+        img: "https://servicefinder.com.ph/uploads/banners/b1770590676.webp",
+        isIndoor: true
       }
     ];
 
@@ -1102,10 +1157,13 @@
         btn.className = `destination ${isSelected ? 'selected' : ''}`;
         btn.onclick = () => selectDestination(index);
 
+        const indoorBadgeHtml = dest.isIndoor ? '<span style="display:inline-block; margin-top:8px; font-size:0.75rem; color:#a2d2ff;">☔ Covered Indoor Access</span>' : '';
+
         btn.innerHTML = `
           <span class="destination-letter">OPTION 0${index + 1}</span>
           <span class="destination-title">${dest.mysteryTitle}</span>
           <span class="destination-description">${dest.mysteryDescription}</span>
+          ${indoorBadgeHtml}
         `;
         grid.appendChild(btn);
       });
@@ -1126,6 +1184,13 @@
       document.getElementById('restaurantLocation').textContent = selectedDestination.location;
       document.getElementById('restaurantDescription').textContent = selectedDestination.description;
       
+      const indoorBadge = document.getElementById('indoorBadge');
+      if (selectedDestination.isIndoor) {
+        indoorBadge.classList.remove('hidden');
+      } else {
+        indoorBadge.classList.add('hidden');
+      }
+
       const imgElement = document.getElementById('restaurantImg');
       if (imgElement && selectedDestination.img) {
         imgElement.src = selectedDestination.img;
@@ -1136,6 +1201,10 @@
 
     function showTimeSelection() {
       showScreen('timeSelection');
+    }
+
+    function showRainyBackup() {
+      showScreen('rainyBackup');
     }
 
     function selectTime(timeStr) {
@@ -1175,6 +1244,12 @@
       const subject = encodeURIComponent("My Birthday Date Choice! 💖");
       const body = encodeURIComponent(`Hey! Here is what I chose for my birthday date:\n\n📍 Place: ${restName}\n⏰ Time: ${restTime}\n📅 Date: August 28, 2026\n\nCan't wait! 🥰`);
 
+      window.location.href = `mailto:your-email@gmail.com?subject=${subject}&body=${body}`;
+    }
+
+    function requestRainCheck() {
+      const subject = encodeURIComponent("Rainy Weather Birthday Plan 🌧️💖");
+      const body = encodeURIComponent("Hey! Since the typhoon/rain weather looks crazy, let's do our Plan B cozy stay-in date for my birthday (or reschedule to next week when it clears up)! 🥰");
       window.location.href = `mailto:your-email@gmail.com?subject=${subject}&body=${body}`;
     }
 
