@@ -575,7 +575,7 @@
         I just wanted to make you feel a little extra loved. 🥰
       </div>
       <div class="open-birthday">
-        <button class="primary pulse-glow" onclick="openBirthday()">
+        <button type="button" class="primary pulse-glow" onclick="openBirthday()">
           OPEN YOUR SURPRISE 💌
         </button>
       </div>
@@ -613,7 +613,7 @@
       You deserve all the love, rest, and pampering in the world today. 🥰
     </p>
     <div class="buttons">
-      <button class="primary pulse-glow" onclick="showMemoriesScreen()">
+      <button type="button" class="primary pulse-glow" onclick="showMemoriesScreen()">
         OPEN PRESCRIPTION 💌
       </button>
     </div>
@@ -641,7 +641,7 @@
         </div>
       </div>
       <div class="buttons" style="margin-top: 15px;">
-        <button class="primary pulse-glow" onclick="showQuestion()">
+        <button type="button" class="primary pulse-glow" onclick="showQuestion()">
           CONTINUE TO SURPRISE ✨
         </button>
       </div>
@@ -660,10 +660,10 @@
         I spent a little time coding this instead of just sending a boring message. 🤓❤️
       </div>
       <div class="buttons">
-        <button class="primary pulse-glow" onclick="showRuleScreen()">
+        <button type="button" class="primary pulse-glow" onclick="showRuleScreen()">
           YES, SHOW ME 💗
         </button>
-        <button id="scared" class="secondary" onmouseenter="moveDodgingButton('scared', event)" ontouchstart="moveDodgingButton('scared', event)">
+        <button id="scared" type="button" class="secondary" onmouseenter="moveDodgingButton('scared', event)" ontouchstart="moveDodgingButton('scared', event)">
           No Im not ready
         </button>
       </div>
@@ -678,10 +678,10 @@
       <h2 class="font-serif">Choose your birthday experience 💗</h2>
       <div id="dedicatedRulesNote" class="birthday-note cursor"></div>
       <div class="buttons" style="margin-top: 25px;">
-        <button class="primary pulse-glow" onclick="showDestinationSelector()">
+        <button type="button" class="primary pulse-glow" onclick="showDestinationSelector()">
           Understood 💖
         </button>
-        <button id="notUnderstoodBtn" class="secondary" onmouseenter="moveDodgingButton('notUnderstoodBtn', event)" ontouchstart="moveDodgingButton('notUnderstoodBtn', event)">
+        <button id="notUnderstoodBtn" type="button" class="secondary" onmouseenter="moveDodgingButton('notUnderstoodBtn', event)" ontouchstart="moveDodgingButton('notUnderstoodBtn', event)">
           Not
         </button>
       </div>
@@ -741,10 +741,10 @@
 
       <!-- ACTION BUTTONS -->
       <div class="buttons" style="display: flex; justify-content: center; align-items: center; gap: 14px; margin-top: 0;">
-        <button class="secondary" onclick="showDestinationSelector()" style="margin-top: 0;">
+        <button type="button" class="secondary" onclick="showDestinationSelector()" style="margin-top: 0;">
           ← GO BACK
         </button>
-        <button class="primary pulse-glow" onclick="revealRestaurant()">
+        <button type="button" class="primary pulse-glow" onclick="revealRestaurant()">
           REVEAL ❤️
         </button>
       </div>
@@ -770,8 +770,8 @@
       </div>
       <p id="restaurantDescription" style="font-size: 0.95rem; color: #d4a8b9; margin-top: 10px; line-height: 1.6;"></p>
       <div style="margin-top: 25px; display: flex; flex-direction: column; gap: 10px;">
-        <button class="primary pulse-glow" onclick="showTimeSelection()">RESERVE OUR SPOT 🍷</button>
-        <button class="secondary" onclick="showDestinationSelector()">← Choose Another Spot</button>
+        <button type="button" class="primary pulse-glow" onclick="showTimeSelection()">RESERVE OUR SPOT 🍷</button>
+        <button type="button" class="secondary" onclick="showDestinationSelector()">← Choose Another Spot</button>
       </div>
     </div>
   </section>
@@ -788,12 +788,12 @@
         Which feels better for your birthday?
       </p>
       <div class="time-options">
-        <button class="time-option" onclick="selectTime('12:00 PM')">
+        <button type="button" class="time-option" onclick="selectTime('12:00 PM')">
           <span class="time-icon">☀️</span>
           <span class="time-title">12:00 PM</span>
           <span class="time-description">A little birthday lunch together.</span>
         </button>
-        <button class="time-option" onclick="selectTime('6:00 PM')">
+        <button type="button" class="time-option" onclick="selectTime('6:00 PM')">
           <span class="time-icon">🌙</span>
           <span class="time-title">6:00 PM</span>
           <span class="time-description">A birthday dinner together.</span>
@@ -802,7 +802,7 @@
       
       <!-- RAINY WEATHER BACKUP BUTTON -->
       <div style="margin-top: 20px;">
-        <button class="secondary" onclick="showRainyBackup()" style="width: 100%; border-color: rgba(100, 200, 255, 0.4); color: #a2d2ff;">
+        <button type="button" class="secondary" onclick="showRainyBackup()" style="width: 100%; border-color: rgba(100, 200, 255, 0.4); color: #a2d2ff;">
           🌧️ Typhoons / Heavy Rain Contingency Plan
         </button>
       </div>
@@ -836,10 +836,10 @@
         Zero rush, zero stress, and complete rest for your birthday! 💖
       </div>
       <div class="buttons">
-        <button class="secondary" onclick="showTimeSelection()">
+        <button type="button" class="secondary" onclick="showTimeSelection()">
           ← BACK TO RESTAURANTS
         </button>
-        <button class="primary pulse-glow" onclick="requestRainCheck()">
+        <button type="button" class="primary pulse-glow" onclick="requestRainCheck()">
           SELECT STAY-IN DATE 🌧️
         </button>
       </div>
@@ -870,10 +870,10 @@
         You can still go back if you want to change something. 🥰
       </p>
       <div class="buttons">
-        <button class="secondary" onclick="showTimeSelection()">
+        <button type="button" class="secondary" onclick="showTimeSelection()">
           ← GO BACK
         </button>
-        <button class="primary pulse-glow" onclick="accept()">
+        <button type="button" class="primary pulse-glow" onclick="accept()">
           PROCEED ❤️
         </button>
       </div>
@@ -901,10 +901,10 @@
     </div>
     <!-- EMAIL ACTION BUTTONS -->
     <div class="buttons" style="flex-direction: column; width: 100%;">
-      <button onclick="sendEmailChoice()" class="primary pulse-glow" style="width: 100%;">
+      <button type="button" onclick="sendEmailChoice()" class="primary pulse-glow" style="width: 100%;">
         Send Me Your Pick ✉️
       </button>
-      <button onclick="requestRainCheck()" class="secondary" style="width: 100%; border-color: rgba(100, 200, 255, 0.4); color: #a2d2ff;">
+      <button type="button" onclick="requestRainCheck()" class="secondary" style="width: 100%; border-color: rgba(100, 200, 255, 0.4); color: #a2d2ff;">
         ☔ Request Rainy Weather Postpone / Rain Check
       </button>
     </div>
@@ -1248,9 +1248,17 @@
     }
 
     function requestRainCheck() {
+      triggerFlowerBlast();
+
       const subject = encodeURIComponent("Rainy Weather Birthday Plan 🌧️💖");
       const body = encodeURIComponent("Hey! Since the typhoon/rain weather looks crazy, let's do our Plan B cozy stay-in date for my birthday (or reschedule to next week when it clears up)! 🥰");
-      window.location.href = `mailto:your-email@gmail.com?subject=${subject}&body=${body}`;
+      
+      const mailtoUrl = `mailto:your-email@gmail.com?subject=${subject}&body=${body}`;
+      window.open(mailtoUrl, '_self');
+
+      setTimeout(() => {
+        alert("Stay-in birthday choice requested! 🌧️💖 Take a screenshot of this screen and send it to me!");
+      }, 500);
     }
 
     function triggerFlowerBlast() {
